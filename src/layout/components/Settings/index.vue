@@ -1,25 +1,25 @@
 <template>
   <div class="drawer-container">
     <div>
-      <h3 class="drawer-title">Page style setting</h3>
+      <h3 class="drawer-title">设置页面样式</h3>
 
       <div class="drawer-item">
         <span>皮肤颜色</span>
         <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" />
       </div>
 
-      <!-- <div class="drawer-item">
-        <span>打开标签视图</span>
+      <div class="drawer-item">
+        <span>标签视图</span>
         <el-switch v-model="tagsView" class="drawer-switch" />
-      </div> -->
+      </div>
 
       <div class="drawer-item">
-        <span>Fixed定位Header</span>
+        <span>锁定头部</span>
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>显示Logo</span>
+        <span>侧边栏 Logo</span>
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </div>
 
@@ -36,6 +36,7 @@ export default {
     return {}
   },
   computed: {
+    // 锁定头部
     fixedHeader: {
       get() {
         return this.$store.state.settings.fixedHeader
@@ -47,6 +48,7 @@ export default {
         })
       }
     },
+    // 标前视图
     tagsView: {
       get() {
         return this.$store.state.settings.tagsView
@@ -58,6 +60,7 @@ export default {
         })
       }
     },
+    // 侧边栏 Logo
     sidebarLogo: {
       get() {
         return this.$store.state.settings.sidebarLogo
@@ -71,6 +74,7 @@ export default {
     }
   },
   methods: {
+    // 设置皮肤
     themeChange(val) {
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',

@@ -12,7 +12,7 @@
 
         <Screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
+        <el-tooltip content="字体大小" effect="dark" placement="bottom">
           <SizeSelect id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
 
@@ -23,14 +23,16 @@
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
-        <!-- <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
+        <el-dropdown-menu slot="dropdown">
+          <!-- <router-link to="/profile/index"> -->
+          <a href="javascript:;">
             <el-dropdown-item>个人中心</el-dropdown-item>
-          </router-link>
+          </a>
+          <!-- </router-link> -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
           </el-dropdown-item>
-        </el-dropdown-menu> -->
+        </el-dropdown-menu>
       </el-dropdown>
     </div>
   </div>

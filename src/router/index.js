@@ -10,7 +10,7 @@ import Layout from '@/layout'
 import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
-import nestedRouter from './modules/nested' // 嵌套路由
+import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -34,9 +34,8 @@ import nestedRouter from './modules/nested' // 嵌套路由
  */
 
 /**
- * constantRoutes 恒量路由
- * 没有权限要求的页面
- * 所有角色都可访问的页面
+ * constantRoutes 恒定路由
+ * 没有权限要求的页面，所有角色都可进入
  */
 export const constantRoutes = [
   {
@@ -79,19 +78,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '面板', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/documentation',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: '文档', icon: 'documentation', affix: true }
+        meta: { title: '数据面板', icon: 'dashboard' }
       }
     ]
   },
@@ -112,10 +99,66 @@ export const constantRoutes = [
 ]
 
 /**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
+ * asyncRoutes 异步路由
+ * 需要根据用户角色动态加载的路由
  */
 export const asyncRoutes = [
+  // 采购管理
+  {
+    path: '/purchasing',
+    component: Layout,
+    redirect: '/purchasing/order/index',
+    // alwaysShow: true, // will always show the root menu
+    name: 'Purchasing',
+    meta: {
+      title: '采购管理',
+      icon: 'shopping',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'order',
+        component: () => import('@/views/purchasing/order/index'),
+        name: 'OrderPurchasing',
+        meta: {
+          title: '采购订单',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'putin',
+        component: () => import('@/views/purchasing/putin/index'),
+        name: 'PutinPurchasing',
+        meta: {
+          title: '入库状态'
+          // if do not set roles, means: this page does not require permission
+        }
+      }
+    ]
+  },
+  // 供应商管理
+  {
+    path: '/supplier',
+    component: Layout,
+    name: 'Supplier',
+    meta: {
+      title: '供应商管理',
+      icon: 'people',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'supplier',
+        component: () => import('@/views/supplier/index'),
+        name: 'Supplier',
+        meta: {
+          title: '供应商管理',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
+      }
+    ]
+  },
+
   {
     path: '/permission',
     component: Layout,
@@ -123,7 +166,7 @@ export const asyncRoutes = [
     alwaysShow: true, // will always show the root menu
     name: 'Permission',
     meta: {
-      title: '权限',
+      title: 'Permission',
       icon: 'lock',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
@@ -133,7 +176,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/page'),
         name: 'PagePermission',
         meta: {
-          title: '页面权限',
+          title: 'Page Permission',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
@@ -142,7 +185,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/directive'),
         name: 'DirectivePermission',
         meta: {
-          title: '指令权限'
+          title: 'Directive Permission'
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -151,7 +194,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/role'),
         name: 'RolePermission',
         meta: {
-          title: '角色权限',
+          title: 'Role Permission',
           roles: ['admin']
         }
       }
@@ -166,7 +209,7 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/icons/index'),
         name: 'Icons',
-        meta: { title: '图标', icon: 'icon', noCache: true }
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
       }
     ]
   },
@@ -183,7 +226,7 @@ export const asyncRoutes = [
     redirect: '/example/list',
     name: 'Example',
     meta: {
-      title: '例子',
+      title: 'Example',
       icon: 'el-icon-s-help'
     },
     children: [
@@ -216,7 +259,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         component: () => import('@/views/tab/index'),
-        name: '选项卡',
+        name: 'Tab',
         meta: { title: 'Tab', icon: 'tab' }
       }
     ]
@@ -228,7 +271,7 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'ErrorPages',
     meta: {
-      title: '错误页面',
+      title: 'Error Pages',
       icon: '404'
     },
     children: [
@@ -254,7 +297,7 @@ export const asyncRoutes = [
       {
         path: 'log',
         component: () => import('@/views/error-log/index'),
-        name: '错误日志',
+        name: 'ErrorLog',
         meta: { title: 'Error Log', icon: 'bug' }
       }
     ]
@@ -340,7 +383,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         component: () => import('@/views/theme/index'),
-        name: '皮肤',
+        name: 'Theme',
         meta: { title: 'Theme', icon: 'theme' }
       }
     ]
@@ -354,7 +397,18 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/clipboard/index'),
         name: 'ClipboardDemo',
-        meta: { title: '剪切板', icon: 'clipboard' }
+        meta: { title: 'Clipboard', icon: 'clipboard' }
+      }
+    ]
+  },
+
+  {
+    path: 'external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://github.com/PanJiaChen/vue-element-admin',
+        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   },

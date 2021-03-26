@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <SidebarItem v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -35,7 +35,6 @@ export default {
       const route = this.$route
       const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
-      console.log(meta, path)
       if (meta.activeMenu) {
         return meta.activeMenu
       }

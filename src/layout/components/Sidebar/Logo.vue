@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       title: 'FRIDAYIN WMS',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo: 'https://cdn.shopifycdn.net/s/files/1/0527/5516/9434/files/1_deefb707-fbaa-41ab-bd02-1535a4111d00.png'
     }
   }
 }
@@ -48,18 +49,18 @@ export default {
   line-height: 50px;
   background: #2b2f3a;
   text-align: left;
-  padding-left: 5px;
   overflow: hidden;
+  padding-left: 15px;
 
   & .sidebar-logo-link {
     height: 100%;
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 25px;
+      height: 25px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 10px;
     }
 
     & .sidebar-title {

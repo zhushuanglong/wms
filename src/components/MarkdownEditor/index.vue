@@ -68,7 +68,7 @@ export default {
     },
     language(val) {
       this.destroyEditor()
-      // this.initEditor()
+      this.initEditor()
     },
     height(newValue) {
       this.editor.height(newValue)
@@ -81,7 +81,7 @@ export default {
     // this.initEditor()
   },
   destroyed() {
-    this.destroyEditor()
+    // this.destroyEditor()
   },
   methods: {
     // initEditor() {
@@ -96,11 +96,11 @@ export default {
     //     this.$emit('input', this.editor.getValue())
     //   })
     // },
-    destroyEditor() {
-      if (!this.editor) return
-      this.editor.off('change')
-      this.editor.remove()
-    },
+    // destroyEditor() {
+    //   if (!this.editor) return
+    //   this.editor.off('change')
+    //   this.editor.remove()
+    // },
     setValue(value) {
       this.editor.setValue(value)
     },
