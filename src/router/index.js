@@ -103,11 +103,53 @@ export const constantRoutes = [
  * 需要根据用户角色动态加载的路由
  */
 export const asyncRoutes = [
+  // 产品管理
+  {
+    path: '/product',
+    component: Layout,
+    redirect: '/product/order/index',
+    // alwaysShow: true, // will always show the root menu
+    name: 'Product',
+    meta: {
+      title: '产品管理',
+      icon: 'shopping',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'product',
+        component: () => import('@/views/product/index'),
+        name: 'IndexProduct',
+        meta: {
+          title: '产品列表',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: '/create',
+        component: () => import('@/views/product/create'),
+        name: 'CreateProduct',
+        meta: {
+          title: '产品上新',
+          roles: ['admin', 'editor'] // you can set roles in root nav
+        }
+      },
+      {
+        path: '/detail',
+        component: () => import('@/views/product/detail'),
+        name: 'DetailProduct',
+        meta: {
+          title: '产品详情',
+          roles: ['admin', 'editor'] // you can set roles in root nav
+        }
+      }
+    ]
+  },
   // 采购管理
   {
     path: '/purchasing',
     component: Layout,
-    redirect: '/purchasing/order/index',
+    redirect: '/purchasing/order',
     // alwaysShow: true, // will always show the root menu
     name: 'Purchasing',
     meta: {
@@ -125,40 +167,18 @@ export const asyncRoutes = [
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
       },
-      {
-        path: 'putin',
-        component: () => import('@/views/purchasing/putin/index'),
-        name: 'PutinPurchasing',
-        meta: {
-          title: '入库状态'
-          // if do not set roles, means: this page does not require permission
-        }
-      }
-    ]
-  },
-  // 供应商管理
-  {
-    path: '/supplier',
-    component: Layout,
-    name: 'Supplier',
-    meta: {
-      title: '供应商管理',
-      icon: 'people',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
+      // 供应商管理
       {
         path: 'supplier',
-        component: () => import('@/views/supplier/index'),
+        component: () => import('@/views/purchasing/supplier/index'),
         name: 'Supplier',
         meta: {
-          title: '供应商管理',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          title: '供应商',
+          roles: ['admin', 'editor'] // you can set roles in root nav
         }
       }
     ]
   },
-
   {
     path: '/permission',
     component: Layout,

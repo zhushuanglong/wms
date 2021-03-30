@@ -1,0 +1,19 @@
+{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "name": "供应商11",
+        "createTime": "2012-02-22 15:00",
+        "updateTime": "2012-02-22 15:05"
+      },
+      {
+        "name": "供应商22",
+        "createTime": "2012-03-22 16:00",
+        "updateTime": "2012-03-22 16:05"
+      }
+    ],
+    "total": 2
+  },
+  "errorMessage": ""
+}

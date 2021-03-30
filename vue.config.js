@@ -36,7 +36,16 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require("./mock/mock-server.js")
+    // before: require("./mock/mock-server.js")
+    before(app) {
+      // mock数据
+      const mock = require('./mock/mock.js')
+      const setOnline = mock.setOnline
+
+      setOnline.forEach(function(m) {
+        app[m.type](m.url, mock[m.name])
+      })
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
