@@ -32,29 +32,29 @@ var setOnline = [
     type: 'get',
     url: '/purchasing/list'
   },
-  // 供应商名单
-  {
-    name: 'suppliers',
-    type: 'get',
-    url: '/suppliers'
-  },
   // 供应商 - 列表
   {
-    name: 'supplierList',
+    name: 'querySuppliers',
     type: 'get',
-    url: '/supplier/list'
+    url: '/querySuppliers'
   },
   // 供应商 - 新增
   {
-    name: 'supplierCreate',
-    type: 'get',
-    url: '/supplier/create'
+    name: 'createSupplier',
+    type: 'post',
+    url: '/createSupplier'
   },
   // 供应商 - 编辑
   {
-    name: 'supplierEdit',
-    type: 'get',
-    url: '/supplier/edit'
+    name: 'modifySupplier',
+    type: 'post',
+    url: '/modifySupplier'
+  },
+  // 供应商 - 列表
+  {
+    name: 'removeSupplier',
+    type: 'post',
+    url: '/removeSupplier'
   },
 
 

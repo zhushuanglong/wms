@@ -147,11 +147,11 @@ export const asyncRoutes = [
   },
   // 采购管理
   {
-    path: '/purchasing',
+    path: '/purchase',
     component: Layout,
-    redirect: '/purchasing/order',
+    redirect: '/purchase/order',
     // alwaysShow: true, // will always show the root menu
-    name: 'Purchasing',
+    name: 'Purchase',
     meta: {
       title: '采购管理',
       icon: 'shopping',
@@ -160,8 +160,8 @@ export const asyncRoutes = [
     children: [
       {
         path: 'order',
-        component: () => import('@/views/purchasing/order/index'),
-        name: 'OrderPurchasing',
+        component: () => import('@/views/purchase/order/index'),
+        name: 'OrderPurchase',
         meta: {
           title: '采购订单',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
@@ -170,7 +170,7 @@ export const asyncRoutes = [
       // 供应商管理
       {
         path: 'supplier',
-        component: () => import('@/views/purchasing/supplier/index'),
+        component: () => import('@/views/purchase/supplier/index'),
         name: 'Supplier',
         meta: {
           title: '供应商',

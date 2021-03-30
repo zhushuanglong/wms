@@ -1,19 +1,13 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <!-- <el-input 
-        v-model="listQuery.name" 
-        placeholder="供应商名称" 
-        style="width: 200px;" 
-        class="filter-item" 
-        @keyup.enter.native="handleFilter" /> -->
-
       <el-autocomplete
-        v-model="listQuery.name"
+        v-model="listQuery.supplierName"
         class="inline-input filter-item"
         :fetch-suggestions="querySearch"
         placeholder="请输入供应商名称"
         style="width: 200px;"
+        @keyup.enter.native="handleFilter"
       />
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
@@ -34,19 +28,19 @@
     >
       <el-table-column label="ID" prop="id" align="center" width="80">
         <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
+          <span>{{ row.supplierId }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="供应商名称" width="400px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
+          <span>{{ row.supplierName }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="创建时间" width="200px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.createTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.creationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
@@ -73,7 +67,7 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
         <el-form-item label="供应商名称" prop="name">
-          <el-input v-model="temp.name" />
+          <el-input v-model="temp.supplierName" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -111,7 +105,7 @@ export default {
       listQuery: {
         // page: 1,
         // limit: 20,
-        name: '' // 供应商名称
+        supplierName: '' // 供应商名称
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -121,6 +115,7 @@ export default {
         create: '添加'
       },
       temp: {},
+      suppliers: [], // 供应商数据集合
       rules: {
         name: [{ required: true, message: '请填写供应商名称', trigger: 'blur' }]
       },
@@ -130,12 +125,13 @@ export default {
   created() {
     this.getList()
   },
+  
   methods: {
     getList() {
       this.listLoading = true
 
       request({
-        url: '/supplier/list',
+        url: '/querySuppliers',
         method: 'get',
         params: this.listQuery
       }).then(res => {
@@ -143,28 +139,26 @@ export default {
         this.list = list
         this.total = total
         this.listLoading = false
+
+        // autocomplete 数据同步
+        this.suppliers = list
       })
     },
     querySearch(queryString, cb) {
-      const suppliers = this.list
-      var results = queryString ? suppliers.filter(this.createFilter(queryString)) : suppliers
-      // 调用 callback 返回建议列表的数据
-      console.log(queryString, this.createFilter(queryString), 222)
+      const results = queryString 
+        ? this.suppliers.filter(arr => arr.value.toLowerCase().indexOf(queryString.toLowerCase()) >= 0) 
+        : this.suppliers
+
       cb(results)
-    },
-    createFilter(queryString) {
-      return (arr) => {
-        return (
-          arr.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        )
-      }
     },
     handleFilter() {
       // this.listQuery.page = 1
       this.getList()
     },
     createData() {
-      this.handleCreateUpdateData('create', '添加')
+      this.handleCreateUpdateData('createSupplier', {
+        supplierName: this.listQuery.supplierName
+      }, '添加')
     },
     handleCreate() {
       this.temp = {}
@@ -175,10 +169,13 @@ export default {
       })
     },
     updateData() {
-      this.handleCreateUpdateData('edit', '编辑')
+      this.handleCreateUpdateData('modifySupplier', this.temp, '编辑')
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row)
+      this.temp = Object.assign({}, {
+        supplierId: row.supplierId,
+        supplierName: row.supplierName
+      })
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -190,8 +187,8 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           request({
-            url: '/supplier/' + api,
-            method: 'get',
+            url: api,
+            method: 'post',
             params: tempData
           }).then(res => {
             this.$notify({
@@ -207,14 +204,31 @@ export default {
         }
       })
     },
-    handleDelete(row, index) {
-      this.$notify({
-        // title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
+    deleteData(row) {
+      request({
+        url: '/removeSupplier',
+        method: 'post',
+        params: {
+          supplierId: row.supplierId
+        }
+      }).then(res => {
+        this.getList()
       })
-      this.getList()
+    },
+    handleDelete(row, index) {
+      this.$confirm('确认删除供应商?', '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async() => {
+          await this.deleteData(row)
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        .catch(err => { console.error(err) })
     }
   }
 }
