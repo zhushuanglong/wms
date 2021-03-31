@@ -1,18 +1,25 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-autocomplete
-        v-model="listQuery.supplierName"
-        class="inline-input filter-item"
-        :fetch-suggestions="querySearch"
-        placeholder="请输入供应商名称"
-        style="width: 200px;"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      <el-select 
+        v-model="listQuery.supplierId"  
+        class="filter-item mr10" 
+        filterable 
+        placeholder="请选择供应商"
+        clearable
+      >
+        <el-option
+          v-for="item in list"
+          :key="item.supplierId"
+          :label="item.supplierName"
+          :value="item.supplierId"
+        />
+      </el-select>
+
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         添加
       </el-button>
     </div>
@@ -26,13 +33,13 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="ID" prop="id" align="center" width="80">
+      <el-table-column label="供应商ID" prop="id" align="center" width="80">
         <template slot-scope="{row}">
           <span>{{ row.supplierId }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="供应商名称" width="400px" align="center">
+      <el-table-column label="供应商名称" width="300px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.supplierName }}</span>
         </template>
@@ -50,6 +57,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="备注" width="200px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.remark }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column label="操作" align="center" min-width="200" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
@@ -62,12 +75,13 @@
       </el-table-column>
     </el-table>
 
-    <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
-
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="供应商名称" prop="name">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="600px">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px">
+        <el-form-item label="供应商名称" prop="supplierName">
           <el-input v-model="temp.supplierName" />
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="temp.remark" type="textarea" placeholder="请输入，如 URL 等备注" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -85,17 +99,13 @@
 
 <script>
 import request from '@/api/request'
-import waves from '@/directive/waves' // waves directive 防重
 // eslint-disable-next-line
 import { parseTime } from '@/utils'
 // import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'ComplexTable',
-  components: { 
-    // Pagination 
-  },
-  directives: { waves },
+  name: 'PurchaseSupplier',
+  components: {},
   data() {
     return {
       tableKey: 0,
@@ -105,7 +115,7 @@ export default {
       listQuery: {
         // page: 1,
         // limit: 20,
-        supplierName: '' // 供应商名称
+        supplierId: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -115,9 +125,8 @@ export default {
         create: '添加'
       },
       temp: {},
-      suppliers: [], // 供应商数据集合
       rules: {
-        name: [{ required: true, message: '请填写供应商名称', trigger: 'blur' }]
+        supplierName: [{ required: true, message: '请填写供应商名称', trigger: 'blur' }]
       },
       downloadLoading: false
     }
@@ -133,32 +142,37 @@ export default {
       request({
         url: '/querySuppliers',
         method: 'get',
-        params: this.listQuery
+        params: {
+          supplierId: this.listQuery.supplierId
+        }
       }).then(res => {
-        const { list, total } = res.data
-        this.list = list
+        const { suppliers, total } = res.data
+        this.list = suppliers
         this.total = total
         this.listLoading = false
-
-        // autocomplete 数据同步
-        this.suppliers = list
+        // this.getQuerySearchList()
       })
     },
-    querySearch(queryString, cb) {
-      const results = queryString 
-        ? this.suppliers.filter(arr => arr.value.toLowerCase().indexOf(queryString.toLowerCase()) >= 0) 
-        : this.suppliers
-
-      cb(results)
-    },
+    
+    // 数据处理
+    // getQuerySearchList() {
+    //   this.list.map(arr => {
+    //     arr.value = arr.supplierName
+    //   })
+    // },
+    // querySearch(queryString, cb) {
+    //   const results = queryString 
+    //     ? this.list.filter(arr => arr.value.toLowerCase().indexOf(queryString.toLowerCase()) >= 0) 
+    //     : this.list
+      
+    //   cb(results)
+    // },
     handleFilter() {
       // this.listQuery.page = 1
       this.getList()
     },
     createData() {
-      this.handleCreateUpdateData('createSupplier', {
-        supplierName: this.listQuery.supplierName
-      }, '添加')
+      this.handleCreateUpdateData('/createSupplier', '添加')
     },
     handleCreate() {
       this.temp = {}
@@ -169,12 +183,13 @@ export default {
       })
     },
     updateData() {
-      this.handleCreateUpdateData('modifySupplier', this.temp, '编辑')
+      this.handleCreateUpdateData('/modifySupplier', '编辑')
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, {
         supplierId: row.supplierId,
-        supplierName: row.supplierName
+        supplierName: row.supplierName,
+        remark: row.remark
       })
       this.dialogStatus = 'update'
       this.dialogFormVisible = true

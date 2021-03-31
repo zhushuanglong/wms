@@ -10,28 +10,43 @@ var fs = require('fs')
 var setOnline = [
   //- 用户管理 -//
   {
-    name: 'userLogin',
+    name: 'login',
     type: 'post',
-    url: '/user/login'
+    url: '/login'
   },
   {
-    name: 'userInfo',
-    type: 'get',
-    url: '/user/info'
-  },
-  {
-    name: 'userLogout',
-    type: 'get',
-    url: '/user/logout'
+    name: 'logout',
+    type: 'post',
+    url: '/logout'
   },
 
   //- 采购管理 -//
-  // 采购订单
+
+  // 采购单 - 列表
   {
-    name: 'purchasingList',
+    name: 'queryPurchaseOrders',
     type: 'get',
-    url: '/purchasing/list'
+    url: '/queryPurchaseOrders'
   },
+  // 采购单 - 创建
+  {
+    name: 'createPurchaseOrder',
+    type: 'post',
+    url: '/createPurchaseOrder'
+  },
+  // 采购单 - 返修
+  {
+    name: 'returnPurchaseOrder',
+    type: 'post',
+    url: '/returnPurchaseOrder'
+  },
+  // 采购单 - 关闭
+  {
+    name: 'closePurchaseOrder',
+    type: 'post',
+    url: '/closePurchaseOrder'
+  },
+
   // 供应商 - 列表
   {
     name: 'querySuppliers',

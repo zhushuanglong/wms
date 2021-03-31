@@ -1,0 +1,269 @@
+{
+  "code": 0,
+  "data": {
+    "purchaseOrders": [
+      {
+        "purchaseOrderId": "F100012345",
+        "purchaseOrderStatus": "NOT_ARRIVED",
+        "quantity": 1000,
+        "inboundQuantity": 0,
+        "purchaseOrderLines": [
+          {
+            "purchaseOrderLineId": "L1",
+            "skuCode": 1,
+            "skuTitle": "女装v领111",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "S"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 0,
+            "purchaseOrderLineStatus": "NOT_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L2",
+            "skuCode": 2,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "M"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 98,
+            "purchaseOrderLineStatus": "PARTIAL_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L3",
+            "skuCode": 3,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_pi/2021/03/25/16166395216bb24a8fa6e0649570bf8971fa370250_thumbnail_405x552.jpg",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "L"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 100,
+            "purchaseOrderLineStatus": "COMPLETE"
+          },
+          {
+            "purchaseOrderLineId": "L1",
+            "skuCode": 1,
+            "skuTitle": "女装v领111",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "S"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 0,
+            "purchaseOrderLineStatus": "NOT_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L2",
+            "skuCode": 2,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "M"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 98,
+            "purchaseOrderLineStatus": "PARTIAL_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L3",
+            "skuCode": 3,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_pi/2021/03/25/16166395216bb24a8fa6e0649570bf8971fa370250_thumbnail_405x552.jpg",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "L"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 100,
+            "purchaseOrderLineStatus": "COMPLETE"
+          },
+          {
+            "purchaseOrderLineId": "L1",
+            "skuCode": 1,
+            "skuTitle": "女装v领111",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "S"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 0,
+            "purchaseOrderLineStatus": "NOT_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L2",
+            "skuCode": 2,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "M"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 98,
+            "purchaseOrderLineStatus": "PARTIAL_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L3",
+            "skuCode": 3,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_pi/2021/03/25/16166395216bb24a8fa6e0649570bf8971fa370250_thumbnail_405x552.jpg",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "L"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 100,
+            "purchaseOrderLineStatus": "COMPLETE"
+          },
+          {
+            "purchaseOrderLineId": "L1",
+            "skuCode": 1,
+            "skuTitle": "女装v领111",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "S"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 0,
+            "purchaseOrderLineStatus": "NOT_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L2",
+            "skuCode": 2,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "M"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 98,
+            "purchaseOrderLineStatus": "PARTIAL_ARRIVED"
+          },
+          {
+            "purchaseOrderLineId": "L3",
+            "skuCode": 3,
+            "skuTitle": "女装v领222",
+            "skuPics": "https://img.ltwebstatic.com/images3_pi/2021/03/25/16166395216bb24a8fa6e0649570bf8971fa370250_thumbnail_405x552.jpg",
+            "purchasePrice": "16.88",
+            "skuPropValues": [
+              {
+                "categoryPropDefName": "颜色",
+                "categoryPropValue": "红色"
+              },
+              {
+                "categoryPropDefName": "尺码",
+                "categoryPropValue": "L"
+              }
+            ],
+            "quantity": 100,
+            "inboundQuantity": 100,
+            "purchaseOrderLineStatus": "COMPLETE"
+          }
+        ],
+        "remark": "备注",
+        "supplierName": "供应商 666",
+        "opRecords": [{
+          "skuCode": 1,
+          "op": "Eddie",
+          "amount": "Eddie",
+          "opDetail": "货架坏了",
+          "operator": "Eddie",
+          "opTime": "2012-02-22 15:00"
+        }],
+        "creationTime": "2012-02-22 15:00",
+        "updateTime": "2012-02-22 15:05"
+      }
+    ],
+    "total": 2
+  },
+  "errorMessage": ""
+}
