@@ -1,5 +1,5 @@
 // 自动登录
-const TokenKey = 'Admin-Token'
+const TokenKey = 'WMS-Login-Token'
 
 export function getToken() {
   return localStorage.getItem(TokenKey)

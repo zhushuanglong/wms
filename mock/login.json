@@ -4,9 +4,7 @@
     "id": 123,
     "userName": "Super",
     "realName": "云凡",
-    "token": "admin-token",
-    "roles": ["admin"],
-    "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
+    "token": "yunfan-token"
   },
   "errorMessage": "成功"
 }

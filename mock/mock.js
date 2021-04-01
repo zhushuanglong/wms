@@ -15,11 +15,6 @@ var setOnline = [
     url: '/login'
   },
   {
-    name: 'userInfo',
-    type: 'get',
-    url: '/user/info'
-  },
-  {
     name: 'logout',
     type: 'post',
     url: '/logout'

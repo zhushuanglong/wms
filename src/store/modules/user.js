@@ -1,6 +1,7 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import router, { resetRouter } from '@/router'
+// import router, { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
@@ -32,6 +33,12 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+
+        // TODO 刷新需要userInfo接口, 但目前没有
+        commit('SET_NAME', data.userName || 'Yunfan')
+        localStorage.setItem('WMS-Login-Username', data.userName)
+
+        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
         setToken(data.token)
         resolve()
       }).catch(error => {
@@ -41,31 +48,31 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
+  // getInfo({ commit, state }) {
+  //   return new Promise((resolve, reject) => {
+  //     getInfo(state.token).then(response => {
+  //       const { data } = response
 
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
+  //       if (!data) {
+  //         reject('Verification failed, please Login again.')
+  //       }
 
-        const { roles, name, avatar } = data
+  //       const { roles, name, avatar } = data
 
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+  //       // roles must be a non-empty array
+  //       if (!roles || roles.length <= 0) {
+  //         reject('getInfo: roles must be a non-null array!')
+  //       }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+  //       commit('SET_ROLES', roles)
+  //       commit('SET_NAME', name)
+  //       commit('SET_AVATAR', avatar)
+  //       resolve(data)
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
 
   // user logout
   logout({ commit, state, dispatch }) {
@@ -95,27 +102,27 @@ const actions = {
       removeToken()
       resolve()
     })
-  },
+  }
 
   // dynamically modify permissions
-  async changeRoles({ commit, dispatch }, role) {
-    const token = role + '-token'
+  // async changeRoles({ commit, dispatch }, role) {
+  //   const token = role + '-token'
 
-    commit('SET_TOKEN', token)
-    setToken(token)
+  //   commit('SET_TOKEN', token)
+  //   setToken(token)
 
-    const { roles } = await dispatch('getInfo')
+  //   const { roles } = await dispatch('getInfo')
 
-    resetRouter()
+  //   resetRouter()
 
-    // generate accessible routes map based on roles
-    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
-    // dynamically add accessible routes
-    router.addRoutes(accessRoutes)
+  //   // generate accessible routes map based on roles
+  //   const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+  //   // dynamically add accessible routes
+  //   router.addRoutes(accessRoutes)
 
-    // reset visited views and cached views
-    dispatch('tagsView/delAllViews', null, { root: true })
-  }
+  //   // reset visited views and cached views
+  //   dispatch('tagsView/delAllViews', null, { root: true })
+  // }
 }
 
 export default {

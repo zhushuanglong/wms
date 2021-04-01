@@ -24,11 +24,12 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <!-- <router-link to="/profile/index"> -->
-          <a href="javascript:;">
+          <!-- <router-link to="/profile/index">
             <el-dropdown-item>个人中心</el-dropdown-item>
+          </router-link> -->
+          <a href="javascript:;">
+            <el-dropdown-item>{{ username }}</el-dropdown-item>
           </a>
-          <!-- </router-link> -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
           </el-dropdown-item>
@@ -56,12 +57,20 @@ export default {
     SizeSelect,
     Search
   },
+  data() {
+    return {
+      username: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
       'device'
     ])
+  },
+  created() {
+    this.username = localStorage.getItem('WMS-Login-Username') || '无名'
   },
   methods: {
     toggleSideBar() {

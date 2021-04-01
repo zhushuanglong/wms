@@ -75,21 +75,21 @@ export const constantRoutes = [
         meta: { title: '数据面板', icon: 'dashboard' }
       }
     ]
-  },
-  {
-    path: '/profile',
-    component: Layout,
-    redirect: '/profile/index',
-    hidden: true,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/profile/index'),
-        name: 'Profile',
-        meta: { title: '个人中心', icon: 'user', noCache: true }
-      }
-    ]
   }
+  // {
+  //   path: '/profile',
+  //   component: Layout,
+  //   redirect: '/profile/index',
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/profile/index'),
+  //       name: 'Profile',
+  //       meta: { title: '个人中心', icon: 'user', noCache: true }
+  //     }
+  //   ]
+  // }
 ]
 
 /**
@@ -158,7 +158,17 @@ export const asyncRoutes = [
         name: 'OrderPurchase',
         meta: {
           title: '采购订单',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin', 'editor']
+        }
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/purchase/order/detail'),
+        name: 'detailPurchase',
+        hidden: true,
+        meta: {
+          title: '采购详情',
+          roles: ['admin', 'editor']
         }
       },
       // 供应商管理
