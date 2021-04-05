@@ -1,0 +1,35 @@
+{
+  "code": 0,
+  "data": {
+    "defs": [
+      {
+        "categoryPropDefId": "categoryPropDefId_1",
+        "categoryPropDefName": "风格",
+        "categoryPropValueType": "",
+        "valueDef": [
+          "休闲",
+          "性感",
+          "复古风",
+          "简约",
+          "波西米亚风格",
+          "甜美"
+        ]
+      },
+      {
+        "categoryPropDefId": "categoryPropDefId_2",
+        "categoryPropDefName": "图案",
+        "categoryPropValueType": "",
+        "valueDef": [
+          "拼接",
+          "撞色", 
+          "格纹", 
+          "提花", 
+          "几何", 
+          "条纹", 
+          "星空"
+        ]
+      }
+    ]
+  },
+  "errorMessage": ""
+}

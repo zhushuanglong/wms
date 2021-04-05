@@ -26,10 +26,11 @@ html {
   height: 100%;
 }
 
-ul {
+ul, li, p {
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
-
 *,
 *:before,
 *:after {
@@ -251,4 +252,11 @@ aside {
       }
     }
   }
+}
+.el-upload-list__item {
+  line-height: 148px;
+}
+.el-upload-list--picture-card .el-upload-list__item-thumbnail {
+  width: 100%;
+  height: auto;
 }

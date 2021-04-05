@@ -1,0 +1,20 @@
+{
+  "code": 0,
+  "data": {
+    "defs": [
+      {
+        "categoryPropDefId": "categoryPropDefId_1",
+        "categoryPropDefName": "颜色",
+        "categoryPropValueType": "",
+        "valueDef": ["红", "黄", "蓝"]
+      },
+      {
+        "categoryPropDefId": "categoryPropDefId_2",
+        "categoryPropDefName": "尺码",
+        "categoryPropValueType": "",
+        "valueDef": ["S","M","L"]
+      }
+    ]
+  },
+  "errorMessage": ""
+}

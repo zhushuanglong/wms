@@ -119,7 +119,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button :loading="submitButtonLoading" type="primary" @click="onSubmit">立即上新</el-button>
+        <el-button :loading="submitButtonLoading" type="primary" @click="onSubmit">保存</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -188,6 +188,21 @@ export default {
   },
   beforeMount(){},
   methods: {
+    // STEP0 查产品
+    queryProducts() {
+      let productId = this.$route.query.id
+      request({
+        url: '/queryProducts',
+        method: 'get',
+        params: {
+          productId,
+          withAllFields: true
+        }
+      }).then(res => {
+        const { products } = res.data
+        this.form = { ...products }
+      })
+    },
     // STEP0 获取品类
     getCategories() {
       request({

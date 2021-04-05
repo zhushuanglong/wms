@@ -9,7 +9,7 @@
 
     <div class="filter-container">
       <el-select 
-        v-model="listQuery.filters.supplierId"  
+        v-model="listQuery.supplierId"  
         class="filter-item mr10" 
         filterable 
         placeholder="供应商"
@@ -24,10 +24,11 @@
       </el-select>
 
       <el-input 
-        v-model="listQuery.filters.purchaseOrderId" 
+        v-model="listQuery.purchaseOrderId" 
         class="filter-item mr10"
         placeholder="扫码内容"
-        style="width: 200px;" 
+        style="width: 200px;"
+        clearable
         @keyup.enter.native="handleFilter"
       />
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
@@ -143,11 +144,9 @@ export default {
       listQuery: {
         pageNo: 1,
         pageSize: 20,
-        filters: {
-          supplierId: '', // 供应商ID
-          purchaseOrderId: '', // 扫码扫出来的采购单ID
-          purchaseOrderStatus: '' // 空是全部  NOT_ARRIVED待到货  PARTIAL_ARRIVED部分到货  COMPLETE已完成
-        }
+        supplierId: '', // 供应商ID
+        purchaseOrderId: '', // 扫码扫出来的采购单ID
+        purchaseOrderStatus: '' // 空是全部  NOT_ARRIVED待到货  PARTIAL_ARRIVED部分到货  COMPLETE已完成
       },
       
       // 状态MAP
@@ -225,12 +224,10 @@ export default {
         this.downloadLoading = false
       })
     },
-    // 数据重组
-    dataReorganization() {
-      // 数据重组 TODO
-    },
     // 创建采购单
-    handleCreate() {},
+    handleCreate() {
+      this.$router.push({ path:'/product/index' })
+    },
     // 关闭订单
     handleClose(row, index) {
       this.dialogFormVisible = true
@@ -241,11 +238,9 @@ export default {
       this.listQuery = {
         pageNo: 1,
         pageSize: this.listQuery.pageSize,
-        filters: {
-          supplierId: '', // 供应商ID
-          purchaseOrderId: '', // 扫码扫出来的采购单ID
-          purchaseOrderStatus: name || '' // 空是全部  NOT_ARRIVED待到货  PARTIAL_ARRIVED部分到货  COMPLETE已完成
-        }
+        supplierId: '', // 供应商ID
+        purchaseOrderId: '', // 扫码扫出来的采购单ID
+        purchaseOrderStatus: name || '' // 空是全部  NOT_ARRIVED待到货  PARTIAL_ARRIVED部分到货  COMPLETE已完成
       }
       this.getList()
     }

@@ -1,0 +1,40 @@
+{
+  "code": 0,
+  "data": {
+    "categories": [
+      {
+        "categoryId": "categoryId_1",
+        "categoryName": "厚外套",
+        "subCategories": [
+          {
+            "categoryId": "categoryId_1_1",
+            "categoryName": "大衣",
+            "subCategories": []
+          },
+          {
+            "categoryId": "categoryId_1_2",
+            "categoryName": "棉衣",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "categoryId": "categoryId_2",
+        "categoryName": "上衣",
+        "subCategories": [
+          {
+            "categoryId": "categoryId_2_1",
+            "categoryName": "衬衫",
+            "subCategories": []
+          },
+          {
+            "categoryId": "categoryId_2_2",
+            "categoryName": "抹胸",
+            "subCategories": []
+          }
+        ]
+      }
+    ]
+  },
+  "errorMessage": ""
+}

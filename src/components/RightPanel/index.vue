@@ -1,9 +1,9 @@
 <template>
   <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
-    <div class="rightPanel-background" />
+    <!-- <div class="rightPanel-background" /> -->
     <div class="rightPanel">
       <div class="handle-button" :style="{'bottom':buttonBottom+'px','background-color':theme}" @click="show=!show">
-        <i :class="show?'el-icon-close':'el-icon-setting'" />
+        <i :class="show?'el-icon-close': icon" />
       </div>
       <div class="rightPanel-items">
         <slot />
@@ -25,11 +25,15 @@ export default {
     buttonBottom: {
       default: 0,
       type: Number
+    },
+    icon: {
+      default: 'el-icon-setting',
+      type: String
     }
   },
   data() {
     return {
-      show: false
+      show: true
     }
   },
   computed: {
@@ -102,7 +106,8 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .05);
+  // box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .05);
+  box-shadow: 0px 0px 7px 0px #d8dce5;
   transition: all .25s cubic-bezier(.7, .3, .1, 1);
   transform: translate(100%);
   background: #fff;

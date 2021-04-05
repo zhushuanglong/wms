@@ -8,19 +8,70 @@
  */
 var fs = require('fs')
 var setOnline = [
-  //- 用户管理 -//
+  //--- 用户管理 ---//
   {
     name: 'login',
     type: 'post',
     url: '/login'
   },
   {
-    name: 'logout',
+    name: 'common',
     type: 'post',
     url: '/logout'
   },
+  
+  //--- 产品管理 ---//
 
-  //- 采购管理 -//
+  // 产品管理 - 列表
+  {
+    name: 'queryProducts',
+    type: 'get',
+    url: '/queryProducts'
+  },
+  // 产品管理 - 导出excel
+  {
+    name: 'exportProducts',
+    type: 'post',
+    url: '/exportProducts'
+  },
+  // 产品管理 - 获取 产品CODE 产品标题
+  {
+    name: 'genProductCodeAndTitle',
+    type: 'post',
+    url: '/genProductCodeAndTitle'
+  },
+  // 产品管理 - 获取 类目 列表
+  {
+    name: 'queryCategories',
+    type: 'get',
+    url: '/queryCategories'
+  },
+  // 产品管理 - 获取 SKU属性 列表
+  {
+    name: 'querySkuPropDefs',
+    type: 'get',
+    url: '/querySkuPropDefs'
+  },
+  // 产品管理 - 获取 非SKU属性 列表
+  {
+    name: 'queryNonSkuCategoryPropDefs',
+    type: 'get',
+    url: '/queryNonSkuCategoryPropDefs'
+  },
+  // 产品管理 - 获取 扩展的 SKU属性
+  {
+    name: 'expandSkuProps',
+    type: 'get',
+    url: '/expandSkuProps'
+  },
+  // 产品管理 - 删除产品
+  {
+    name: 'common',
+    type: 'post',
+    url: '/removeProduct'
+  },
+
+  //--- 采购管理 ---//
 
   // 采购单 - 列表
   {
@@ -36,13 +87,13 @@ var setOnline = [
   },
   // 采购单 - 返修
   {
-    name: 'returnPurchaseOrder',
+    name: 'common',
     type: 'post',
     url: '/returnPurchaseOrder'
   },
   // 采购单 - 关闭
   {
-    name: 'closePurchaseOrder',
+    name: 'common',
     type: 'post',
     url: '/closePurchaseOrder'
   },
@@ -67,7 +118,7 @@ var setOnline = [
   },
   // 供应商 - 列表
   {
-    name: 'removeSupplier',
+    name: 'common',
     type: 'post',
     url: '/removeSupplier'
   },

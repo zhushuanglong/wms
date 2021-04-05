@@ -101,41 +101,53 @@ export const asyncRoutes = [
   {
     path: '/product',
     component: Layout,
-    redirect: '/product/order/index',
-    // alwaysShow: true, // will always show the root menu
+    redirect: '/product/index',
+    alwaysShow: true, // will always show the root menu
     name: 'Product',
     meta: {
       title: '产品管理',
       icon: 'shopping',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin', 'editor']
     },
     children: [
       {
-        path: 'product',
+        path: 'index',
         component: () => import('@/views/product/index'),
         name: 'IndexProduct',
         meta: {
-          title: '产品列表',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          title: '产品管理',
+          roles: ['admin', 'editor']
         }
       },
       {
-        path: '/create',
+        path: 'create',
         component: () => import('@/views/product/create'),
         name: 'CreateProduct',
         meta: {
-          title: '产品上新',
-          roles: ['admin', 'editor'] // you can set roles in root nav
-        }
+          title: '上新产品',
+          roles: ['admin', 'editor']
+        },
+        hidden: true
       },
       {
-        path: '/detail',
-        component: () => import('@/views/product/detail'),
-        name: 'DetailProduct',
+        path: 'edit',
+        component: () => import('@/views/product/edit'),
+        name: 'EditProduct',
         meta: {
-          title: '产品详情',
-          roles: ['admin', 'editor'] // you can set roles in root nav
-        }
+          title: '编辑产品',
+          roles: ['admin', 'editor']
+        },
+        hidden: true
+      },
+      {
+        path: 'view',
+        component: () => import('@/views/product/view'),
+        name: 'ViewProduct',
+        meta: {
+          title: '查看产品',
+          roles: ['admin', 'editor']
+        },
+        hidden: true
       }
     ]
   },
@@ -144,7 +156,7 @@ export const asyncRoutes = [
     path: '/purchase',
     component: Layout,
     redirect: '/purchase/order',
-    // alwaysShow: true, // will always show the root menu
+    alwaysShow: true, // will always show the root menu
     name: 'Purchase',
     meta: {
       title: '采购管理',
@@ -164,7 +176,7 @@ export const asyncRoutes = [
       {
         path: 'detail',
         component: () => import('@/views/purchase/order/detail'),
-        name: 'detailPurchase',
+        name: 'DetailPurchase',
         hidden: true,
         meta: {
           title: '采购详情',

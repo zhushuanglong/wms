@@ -1,0 +1,36 @@
+{
+  "code": 0,
+  "data": {
+    "skus": [
+      {
+        "skuCode": "19200149892",
+        "skuTitle": "红色S啊11",
+        "skuPropValues": [{
+          "categoryPropDefId": "categoryPropDefId_1",
+          "categoryPropValue": "红色",
+          "categoryPropDefName": "颜色"
+        },
+        {
+          "categoryPropDefId": "categoryPropDefId_2",
+          "categoryPropValue": "S",
+          "categoryPropDefName": "尺码"
+        }]
+      },
+      {
+        "skuCode": "19200149822",
+        "skuTitle": "绿色M啊22",
+        "skuPropValues": [{
+          "categoryPropDefId": "categoryPropDefId_1",
+          "categoryPropValue": "绿色",
+          "categoryPropDefName": "颜色"
+        },
+        {
+          "categoryPropDefId": "categoryPropDefId_2",
+          "categoryPropValue": "M",
+          "categoryPropDefName": "尺码"
+        }]
+      }
+    ]
+  },
+  "errorMessage": ""
+}
