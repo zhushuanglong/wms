@@ -3,16 +3,50 @@
   "data": {
     "defs": [
       {
-        "categoryPropDefId": "categoryPropDefId_1",
-        "categoryPropDefName": "颜色",
+        "propNameKey": "color",
+        "localizedName": "颜色",
         "categoryPropValueType": "",
-        "valueDef": ["红", "黄", "蓝"]
+        "valueDef": [
+          {
+            "valueKey": "color01",
+            "localizedValue": "红色"
+          },
+          {
+            "valueKey": "color02",
+            "localizedValue": "黄色"
+          },
+          {
+            "valueKey": "color03",
+            "localizedValue": "蓝色"
+          },
+          {
+            "valueKey": "color04",
+            "localizedValue": "绿色"
+          }
+        ]
       },
       {
-        "categoryPropDefId": "categoryPropDefId_2",
-        "categoryPropDefName": "尺码",
+        "propNameKey": "size",
+        "localizedName": "尺码",
         "categoryPropValueType": "",
-        "valueDef": ["S","M","L"]
+        "valueDef": [
+          {
+            "valueKey": "size01",
+            "localizedValue": "S"
+          },
+          {
+            "valueKey": "size02",
+            "localizedValue": "M"
+          },
+          {
+            "valueKey": "size03",
+            "localizedValue": "L"
+          },
+          {
+            "valueKey": "size04",
+            "localizedValue": "XL"
+          }
+        ]
       }
     ]
   },

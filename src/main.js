@@ -19,7 +19,7 @@ import './utils/error-log' // error log
 import * as filters from './filters' // global filters
 
 Vue.use(Element, {
-  size: localStorage.getItem('size') || 'small'
+  size: localStorage.getItem('size') || 'medium'
   // locale: enLang // 如果使用中文，无需设置，请删除
 })
 

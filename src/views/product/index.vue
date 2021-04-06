@@ -41,16 +41,17 @@
       @row-click="toggleSelection"
     >
       <el-table-column type="selection" width="40px"></el-table-column>
-      <el-table-column label="SPUID" width="150px" align="center">
+      <el-table-column label="产品编码" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.productCode }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="图片" width="150px" align="center">
+      <el-table-column label="图片" width="100px" align="center">
         <template slot-scope="{row}">
           <span v-if="row.productPics">
-            <img :src="row.productPics[0]" width="100px" />
+            <!-- 取一个 -->
+            <img :src="row.productPics[0]" width="75px" style="vertical-align: middle;"/>
           </span>
         </template>
       </el-table-column>
@@ -81,13 +82,10 @@
 
       <el-table-column label="操作" align="center" min-width="200" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            编辑
-          </el-button>
           <el-button type="primary" size="mini" @click="handleView(row)">
             查看
           </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleRemove(row,$index)">
             删除
           </el-button>
         </template>
@@ -125,7 +123,6 @@ export default {
 
       // 编辑、查看
       textMap: {
-        update: '编辑',
         create: '添加'
       },
       
@@ -165,18 +162,11 @@ export default {
     handleCreate() {
       this.$router.push({ path: '/product/create' })
     },
-    // 编辑
-    handleUpdate(row) {
-      this.$router.push({ path: '/product/edit', query: { id: row.productId } })
-    },
     // 查看
     handleView(row) {
       this.$router.push({ path: '/product/view', query: { id: row.productId } })
     },
-    handleCreateUpdateData(api, desc) {
-      
-    },
-    deleteData(row) {
+    removeData(row) {
       request({
         url: '/removeProduct',
         method: 'post',
@@ -187,19 +177,24 @@ export default {
         this.getList()
       })
     },
-    handleDelete(row, index) {
+    handleRemove(row, index) {
       this.$confirm('确认删除该产品吗?', '警告', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(async() => {
-          await this.deleteData(row)
+          await this.removeData(row)
           this.$message({
             type: 'success',
             message: '删除成功!'
           })
-        }).catch(() => {})
+        }).catch(() => {
+          this.$message({
+            type: 'error',
+            message: '删除失败!'
+          })
+        })
     }
   }
 }

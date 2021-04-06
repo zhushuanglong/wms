@@ -35,16 +35,17 @@
       <el-form-item label="类目属性">
         <div class="categroy-props-layout">
           <ul class="categroy-props-list layout-box">
-            <li class="tip" v-if="!renderNonSkuCategoryPropDefs.length">请先选择产品品类</li>
-            <li v-for="(item, index) in renderNonSkuCategoryPropDefs">
-              <div class="lable-name">{{ item.categoryPropDefName }}</div>
+            <li class="tip" v-if="!renderNonSkuProps.length">请先选择产品品类</li>
+            <li v-for="(item, index) in renderNonSkuProps">
+              <div class="lable-name">{{ item.localizedName }}</div>
               <div class="lable-value-list">
                 <div 
                   class="lable-value" 
-                  v-for="(categoryPropValue, $index) in item.valueDef" 
-                  :class="{ 'active': choosedNonSkuCategoryPropDefsObj[item.categoryPropDefId] && choosedNonSkuCategoryPropDefsObj[item.categoryPropDefId].categoryPropValue === categoryPropValue }"
-                  @click="handleChooseCategroyProps(item.categoryPropDefId, categoryPropValue, true)">
-                  {{ categoryPropValue }}
+                  v-for="(propValueItem, $index) in item.valueDef" 
+                  :key="propValueItem.valueKey"
+                  :class="{ 'active': choosedNonSkuPropObj[item.propNameKey] && choosedNonSkuPropObj[item.propNameKey].propValueKey === propValueItem.valueKey }"
+                  @click="handleChooseNonSkuProps(item.propNameKey, propValueItem, true)">
+                  {{ propValueItem.localizedValue }}
                 </div>
               </div>
             </li>
@@ -55,12 +56,13 @@
           </div>
           <!-- 已选择的类目属性 -->
           <div class="categroy-props-choosed-list layout-box">
-            <div class="tip" v-if="!form.nonSkuCategoryProps.length">* 选择左侧类目属性</div>
+            <div class="tip" v-if="!form.nonSkuCategoryProps.length">选择左侧类目属性</div>
             <div 
               class="categroy-props-choosed" 
               v-for="item in form.nonSkuCategoryProps"
-              @click="handleChooseCategroyProps(item.categoryPropDefId, item.categoryPropValue)">
-              {{ item.categoryPropValue }}
+              :key="item.propValueKey"
+              @click="handleChooseNonSkuProps(item.propNameKey, item)">
+              {{ item.propValue }}
             </div>
           </div>
         </div>
@@ -68,10 +70,11 @@
 
       <!-- SKU属性选择 -->
       <el-form-item label="SKU属性">
-        <div class="sku-list" v-for="item in renderSkuPropDefs">
-          <div class="label-name">{{ item.categoryPropDefName }}</div>
+        <div v-if="!form.nonSkuCategoryProps.length" style="color:#caced4">请先选择产品品类和类目属性</div>
+        <div class="sku-list" v-show="form.nonSkuCategoryProps.length" v-for="item in renderSkuPropDefs" :key="item.propNameKey">
+          <div class="label-name">{{ item.localizedName }}</div>
           <el-checkbox-group v-model="skuCheckList" @change="skuChange">
-            <el-checkbox v-for="checkboxItem in item.valueDef" :key="checkboxItem" :label="checkboxItem"></el-checkbox>
+            <el-checkbox v-for="checkboxItem in item.valueDef" :key="checkboxItem.valueKey" :label="checkboxItem.localizedValue"></el-checkbox>
           </el-checkbox-group>
         </div>
         
@@ -103,9 +106,9 @@
               </template>
             </el-table-column>
             
-            <el-table-column v-for="(skuTableItem, index) in skuTableHead" :key="skuTableItem.categoryPropDefName" :label="skuTableItem.categoryPropDefName" width="100px" align="center">
-              <template slot-scope="scope">
-                <span v-if="scope.row.skuPropValues[index]">{{scope.row.skuPropValues[index].categoryPropValue}}</span>
+            <el-table-column v-for="(item, index) in skuTableHead" :key="item.propNameKey" :label="item.localizedName" width="100px" align="center">
+              <template slot-scope="{row}">
+                <span v-if="row.skuPropValues[index] && (row.skuPropValues[index].propNameKey === item.propNameKey)">{{row.skuPropValues[index].localizedValue}}</span>
               </template>
             </el-table-column>
 
@@ -144,24 +147,11 @@ export default {
       categoryOptions: [],
 
       // 非SKU属性类目
-      renderNonSkuCategoryPropDefs: [], // 左边 - 未选择区数据
-      choosedNonSkuCategoryPropDefsObj: {}, // 右边 - 已选择区数据的去重Obj
+      renderNonSkuProps: [], // 左边 - 未选择区数据
+      choosedNonSkuPropObj: {}, // 右边 - 已选择区数据的去重Obj
 
-      // SKU属性 - TODO
-      renderSkuPropDefs: [
-        {
-          "categoryPropDefId": "categoryPropDefId_1",
-          "categoryPropDefName": "颜色",
-          "categoryPropValueType": "",
-          "valueDef": ["红", "黄", "蓝"]
-        },
-        {
-          "categoryPropDefId": "categoryPropDefId_2",
-          "categoryPropDefName": "尺码",
-          "categoryPropValueType": "",
-          "valueDef": ["S","M","L"]
-        }
-      ],
+      // SKU属性
+      renderSkuPropDefs: [],
       skuCheckList: [], // 选中的SKU 如['蓝','红','L']
       
       skuTable: [], // SKU表格数据
@@ -232,32 +222,33 @@ export default {
         }
       }).then(res => {
         const { defs } = res.data
-        this.renderNonSkuCategoryPropDefs = defs
+        this.renderNonSkuProps = defs
       })
     },
     // STEP2 选择类目属性 - 支持正选和反选功能
-    // categoryPropDefId 类目id
-    // categoryPropValue 类目值
+    // propNameKey 类目名key - style风格，下有很多propValueKey
+    // propItem 类目{} 包含propValueKey localizedName
     // type 选择的姿势 true 是正选， false反选/取消
     // 略复杂 - 有问题找Eddie
-    handleChooseCategroyProps(categoryPropDefId, categoryPropValue, type) {
-      // 每个 categoryPropDefId 例（风格：性感、复古风），只能选择一个
+    handleChooseNonSkuProps(propNameKey, propItem, type) {
+      // 每个 propNameKey 例（风格：性感、复古风），只能选择一个
       // 去重 - 位置替换，去除原位置数据
-      this.$delete(this.choosedNonSkuCategoryPropDefsObj, categoryPropDefId)
+      this.$delete(this.choosedNonSkuPropObj, propNameKey)
 
       // 正选
       if (type) {
-        this.choosedNonSkuCategoryPropDefsObj[categoryPropDefId] = {
-          categoryPropDefId, // 唯一
-          categoryPropValue
+        this.choosedNonSkuPropObj[propNameKey] = {
+          propNameKey,
+          propValueKey: propItem.valueKey,
+          propValue: propItem.localizedValue // 提交无用，渲染用
         }
       }
 
       // 清空已选, 重新渲染
       this.form.nonSkuCategoryProps = []
-      for (let i in this.choosedNonSkuCategoryPropDefsObj) {
+      for (let key in this.choosedNonSkuPropObj) {
         this.form.nonSkuCategoryProps.push({
-          ...this.choosedNonSkuCategoryPropDefsObj[i]
+          ...this.choosedNonSkuPropObj[key]
         })
       }
 
@@ -304,31 +295,42 @@ export default {
     // STEP3 SKU选择
     skuChange() {
       let skuProps = []
-      let obj = {} // 选中的sku -> 对应的 表头名  {'1001': '颜色', '1002': '颜色', '003': '尺码'}
-      this.skuTable = []
+      let obj = {}
+      this.skuTableHead = []
 
       // 选择SKU - 组合数据 - this.skuCheckList 已选SKU属性，如['蓝','L']
       this.renderSkuPropDefs.map(v => {
-        this.skuCheckList.map(v2 => {
-          if (v.valueDef.includes(v2)) { // "valueDef": ["S","M","L"] ，包含属性S
+        v.valueDef.map(v2 => {
+          if (this.skuCheckList.includes(v2.localizedValue)) {
             skuProps.push({
-              categoryPropDefId: v.categoryPropDefId,
-              categoryPropValue: v2
+              propNameKey: v.propNameKey,
+              propValueKey: v2.valueKey
             })
-            // key 对应的 表头名 
-            obj[v.categoryPropDefId] = v.categoryPropDefName
+
+            obj[v.propNameKey] = v.localizedName
           }
         })
       })
       
+      // 获取不重复的表头
+      for (let key in obj) {
+        this.skuTableHead.push({
+          propNameKey: key,
+          localizedName: obj[key]
+        })
+      }
+      
       // STEP3 发送组合数据接口
       if (skuProps.length) {
-        this.expandSkuProps(skuProps, obj)
+        this.expandSkuProps(skuProps)
+      } else {
+        this.skuTable = []
       }
     },
 
     // STEP3 发送组合数据接口获取 skuCode 和 title
-    expandSkuProps(skuProps, obj) {
+    expandSkuProps(skuProps) {
+      let tableData = []
       this.skuTableLoading = true
 
       request({
@@ -336,21 +338,33 @@ export default {
         method: 'get',
         params: {
           categoryId: this.form.categoryId,
+          productCode: this.form.productCode,
           nonSkuCategoryProps: this.form.nonSkuCategoryProps,
           skuProps
         }
       }).then(res => {
         const { skus } = res.data
-        this.skuTableHead = []
-        skus[0].skuPropValues.map(v => {
-          this.skuTableHead.push({
-            categoryPropDefId: '', // 这个value要和table序列化出来的对应，无实际用处
-            categoryPropValue: '', // 这个value要和table序列化出来的对应，无实际用处
-            categoryPropDefName: obj[v.categoryPropDefId]
+        
+        // skuTableHead 和 skuTable 数据关系
+        skus.map((v, index) => {
+          tableData.push({
+            skuCode: v.skuCode,
+            skuTitle: v.skuTitle,
+            skuPropValues: []
+          })
+          this.skuTableHead.map(v2 => {
+            v.skuPropValues.map(v3 => {
+              if (v2.propNameKey === v3.propNameKey) {
+                tableData[index].skuPropValues.push({
+                  propNameKey: v3.propNameKey,
+                  localizedValue: v3.localizedValue
+                })
+              }
+            })
           })
         })
 
-        this.skuTable = skus
+        this.skuTable = tableData
         this.skuTableLoading = false
       }).catch(() => {
         this.skuTableLoading = false

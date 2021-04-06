@@ -3,30 +3,69 @@
   "data": {
     "defs": [
       {
-        "categoryPropDefId": "categoryPropDefId_1",
-        "categoryPropDefName": "风格",
+        "propNameKey": "style",
+        "localizedName": "风格",
         "categoryPropValueType": "",
         "valueDef": [
-          "休闲",
-          "性感",
-          "复古风",
-          "简约",
-          "波西米亚风格",
-          "甜美"
+          {
+            "valueKey": "style01",
+            "localizedValue": "休闲"
+          },
+          {
+            "valueKey": "style02",
+            "localizedValue": "性感"
+          },
+          {
+            "valueKey": "style03",
+            "localizedValue": "复古风"
+          },
+          {
+            "valueKey": "style04",
+            "localizedValue": "简约"
+          },
+          {
+            "valueKey": "style05",
+            "localizedValue": "波西米亚风格"
+          },
+          {
+            "valueKey": "style06",
+            "localizedValue": "甜美"
+          }
         ]
       },
       {
-        "categoryPropDefId": "categoryPropDefId_2",
-        "categoryPropDefName": "图案",
+        "propNameKey": "pic",
+        "localizedName": "图案",
         "categoryPropValueType": "",
         "valueDef": [
-          "拼接",
-          "撞色", 
-          "格纹", 
-          "提花", 
-          "几何", 
-          "条纹", 
-          "星空"
+          {
+            "valueKey": "pic01",
+            "localizedValue": "拼接"
+          },
+          {
+            "valueKey": "pic02",
+            "localizedValue": "撞色"
+          },
+          {
+            "valueKey": "pic03",
+            "localizedValue": "格纹"
+          },
+          {
+            "valueKey": "pic04",
+            "localizedValue": "提花"
+          },
+          {
+            "valueKey": "pic05",
+            "localizedValue": "几何"
+          },
+          {
+            "valueKey": "pic06",
+            "localizedValue": "条纹"
+          },
+          {
+            "valueKey": "pic07",
+            "localizedValue": "星空"
+          }
         ]
       }
     ]

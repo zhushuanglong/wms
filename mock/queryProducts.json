@@ -12,66 +12,136 @@
         "productPics": ["https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp", "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp"],
         "nonSkuCategoryProps": [
           {
-            "categoryPropDefName": "领刑",
-            "categoryPropValue": "V领"
-          },
-          {
-            "categoryPropDefName": "风格",
-            "categoryPropValue": "休闲"
-          }
-        ],
-        "skus": [
-          {
-            "skuId": "skuId1",
-            "skuCode": "19200149811",
-            "skuTitle": "女士颜色风格领型图案元素款式品类",
-            "skuPics": [
-              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
-              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
-            ],
-            "purchasePrice": "1588",
-            "skuPropValues": [
+            "categoryPropDef": [
               {
-                "categoryPropDefId": "color11",
-                "categoryPropValue": "红色"
-              },
-              {
-                "categoryPropDefId": "size22",
-                "categoryPropValue": "M"
+                "nameKey": "style",
+                "localizedName": "风格"
               }
-            ]
-          },
-          {
-            "skuId": "skuId2",
-            "skuCode": "19200149811",
-            "skuTitle": "女士颜色风格领型图案元素款式品类",
-            "skuPics": [
-              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
-              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
             ],
-            "purchasePrice": "1588",
-            "skuPropValues": [
+            "categoryPropValue": [
               {
-                "categoryPropDefId": "color11",
-                "categoryPropValue": "蓝色"
-              },
-              {
-                "categoryPropDefId": "size22",
-                "categoryPropValue": "L"
+                "valueKey": "style001",
+                "localizedValue": "休闲"
               }
             ]
           }
         ],
         "skuProps": [
           {
-            "categoryPropDefId": "color11",
-            "categoryPropDefName": "颜色",
-            "categoryPropDefValues": ["红色", "蓝色"]
+            "categoryPropDef": [
+              {
+                "nameKey": "color",
+                "localizedName": "颜色"
+              },
+              {
+                "nameKey": "size",
+                "localizedName": "尺码"
+              }
+            ],
+            "categoryPropValues": [
+              {
+                "categoryPropValue": [
+                  {
+                    "valueKey": "color001",
+                    "localizedValue": "红色"
+                  },
+                  {
+                    "valueKey": "color002",
+                    "localizedValue": "黄色"
+                  }
+                ]
+              },
+              {
+                "categoryPropValue": [
+                  {
+                    "valueKey": "size001",
+                    "localizedValue": "S"
+                  },
+                  {
+                    "valueKey": "size002",
+                    "localizedValue": "M"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "skus": [
+          {
+            "skuId": "skuId001",
+            "skuCode": "19200149811",
+            "skuTitle": "女士颜色风格领型图案元素款式品类",
+            "skuPics": [
+              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
+            ],
+            "purchasePrice": "1588",
+            "skuPropValues": [
+              {
+                "categoryPropDefNameKey": "color",
+                "categoryPropValue": [
+                  {
+                    "valueKey": "color001",
+                    "localizedValue": "红色"
+                  },
+                  {
+                    "valueKey": "color002",
+                    "localizedValue": "黄色"
+                  }
+                ]
+              },
+              {
+                "categoryPropDefNameKey": "size",
+                "categoryPropValue": [
+                  {
+                    "valueKey": "size001",
+                    "localizedValue": "S"
+                  },
+                  {
+                    "valueKey": "size002",
+                    "localizedValue": "M"
+                  }
+                ]
+              }
+            ]
           },
           {
-            "categoryPropDefId": "size22",
-            "categoryPropDefName": "尺码",
-            "categoryPropDefValues": ["M", "L"]
+            "skuId": "skuId002",
+            "skuCode": "19200149822",
+            "skuTitle": "女士颜色02风格领型图案元素款式品类",
+            "skuPics": [
+              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
+            ],
+            "purchasePrice": "1888",
+            "skuPropValues": [
+              {
+                "categoryPropDefNameKey": "color",
+                "categoryPropValue": [
+                  {
+                    "valueKey": "color001",
+                    "localizedValue": "红色"
+                  },
+                  {
+                    "valueKey": "color002",
+                    "localizedValue": "黄色"
+                  }
+                ]
+              },
+              {
+                "categoryPropDefNameKey": "size",
+                "categoryPropValue": [
+                  {
+                    "valueKey": "size001",
+                    "localizedValue": "S"
+                  },
+                  {
+                    "valueKey": "size002",
+                    "localizedValue": "M"
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

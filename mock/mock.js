@@ -70,6 +70,12 @@ var setOnline = [
     type: 'post',
     url: '/removeProduct'
   },
+  // 产品管理 - 上新产品
+  {
+    name: 'createProduct',
+    type: 'post',
+    url: '/createProduct'
+  },
 
   //--- 采购管理 ---//
 

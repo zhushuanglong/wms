@@ -3,32 +3,60 @@
   "data": {
     "skus": [
       {
-        "skuCode": "19200149892",
-        "skuTitle": "红色S啊11",
-        "skuPropValues": [{
-          "categoryPropDefId": "categoryPropDefId_1",
-          "categoryPropValue": "红色",
-          "categoryPropDefName": "颜色"
-        },
-        {
-          "categoryPropDefId": "categoryPropDefId_2",
-          "categoryPropValue": "S",
-          "categoryPropDefName": "尺码"
-        }]
+        "skuCode": "19200149811",
+        "skuTitle": "女士红色M潮牌牛仔衣",
+        "skuPropValues": [
+          {
+            "propNameKey": "color",
+            "localizedValue": "红色"
+          },
+          {
+            "propNameKey": "size",
+            "localizedValue": "M"
+          }
+        ]
       },
       {
-        "skuCode": "19200149822",
-        "skuTitle": "绿色M啊22",
-        "skuPropValues": [{
-          "categoryPropDefId": "categoryPropDefId_1",
-          "categoryPropValue": "绿色",
-          "categoryPropDefName": "颜色"
-        },
-        {
-          "categoryPropDefId": "categoryPropDefId_2",
-          "categoryPropValue": "M",
-          "categoryPropDefName": "尺码"
-        }]
+        "skuCode": "19200149812",
+        "skuTitle": "女士红色L潮牌牛仔衣",
+        "skuPropValues": [
+          {
+            "propNameKey": "color",
+            "localizedValue": "红色"
+          },
+          {
+            "propNameKey": "size",
+            "localizedValue": "L"
+          }
+        ]
+      },
+      {
+        "skuCode": "19200149812",
+        "skuTitle": "女士黄色M潮牌牛仔衣",
+        "skuPropValues": [
+          {
+            "propNameKey": "color",
+            "localizedValue": "黄色"
+          },
+          {
+            "propNameKey": "size",
+            "localizedValue": "M"
+          }
+        ]
+      },
+      {
+        "skuCode": "19200149812",
+        "skuTitle": "女士黄色L潮牌牛仔衣",
+        "skuPropValues": [
+          {
+            "propNameKey": "color",
+            "localizedValue": "黄色"
+          },
+          {
+            "propNameKey": "size",
+            "localizedValue": "L"
+          }
+        ]
       }
     ]
   },

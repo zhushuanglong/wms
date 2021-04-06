@@ -102,11 +102,11 @@ export const asyncRoutes = [
     path: '/product',
     component: Layout,
     redirect: '/product/index',
-    alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     name: 'Product',
     meta: {
       title: '产品管理',
-      icon: 'shopping',
+      icon: 'theme',
       roles: ['admin', 'editor']
     },
     children: [
@@ -130,16 +130,6 @@ export const asyncRoutes = [
         hidden: true
       },
       {
-        path: 'edit',
-        component: () => import('@/views/product/edit'),
-        name: 'EditProduct',
-        meta: {
-          title: '编辑产品',
-          roles: ['admin', 'editor']
-        },
-        hidden: true
-      },
-      {
         path: 'view',
         component: () => import('@/views/product/view'),
         name: 'ViewProduct',
@@ -156,7 +146,7 @@ export const asyncRoutes = [
     path: '/purchase',
     component: Layout,
     redirect: '/purchase/order',
-    alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     name: 'Purchase',
     meta: {
       title: '采购管理',
