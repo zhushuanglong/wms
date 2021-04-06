@@ -34,16 +34,17 @@
             style="width: 100%;"
           >
             <el-table-column prop="skuCode" label="SKU编码" width="150px" align="center"></el-table-column>
-            <el-table-column prop="skuTitle" label="标题" width="240px" align="center"></el-table-column>
-
-            <el-table-column label="图片" min-width="150px" align="center">
+            <el-table-column prop="skuTitle" label="标题" min-width="200px" align="center"></el-table-column>
+            <el-table-column label="图片" min-width="200px" align="center">
               <template slot-scope="{row}">
-                <img v-for="item in row.skuPics" :src="item" style="width: 60px; margin-right:5px;"/>
+                <img v-for="(item, index) in row.skuPics" :key="index" :src="item" style="width: 60px; margin-right:5px;"/>
               </template>
             </el-table-column>
 
-            <el-table-column v-for="(item, index) in form.skuProps" :key="item.categoryPropDefId" :label="item.categoryPropDefName" width="100px" align="center">
-              <span>{{item.categoryPropDefValues[index]}}</span>
+            <el-table-column v-for="(item, index) in form.skuProps" :key="index" :label="item.categoryPropDef.localizedName" width="100px" align="center">
+              <span v-if="item.categoryPropValues && item.categoryPropValues[index]">
+                {{ item.categoryPropValues[index].localizedValue }}
+              </span>
             </el-table-column>
           
             <el-table-column label="采购价" width="110px" align="center">
@@ -72,24 +73,15 @@ export default {
   components: {},
   data() {
     return {
-      // skuTableHead: [],
       form: {
         productCode: '',
         productTitle: '',
         productPics: [],  // 产品图
         skus: [], // SKU属性
-        skuProps: [
-          {
-            "categoryPropDefId": "color11",
-            "categoryPropDefName": "颜色",
-            "categoryPropDefValues": ["红色", "蓝色"]
-          },
-          {
-            "categoryPropDefId": "size22",
-            "categoryPropDefName": "尺码",
-            "categoryPropDefValues": ["M", "L"]
-          }
-        ]
+        skuProps: [{
+          categoryPropDef: {}, 
+          categoryPropValues: []
+        }]
       },
       productId: this.$route.query.id
     }

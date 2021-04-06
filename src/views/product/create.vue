@@ -335,7 +335,7 @@ export default {
 
       request({
         url: '/expandSkuProps',
-        method: 'get',
+        method: 'post',
         params: {
           categoryId: this.form.categoryId,
           productCode: this.form.productCode,

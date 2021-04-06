@@ -28,40 +28,34 @@
         ],
         "skuProps": [
           {
-            "categoryPropDef": [
-              {
-                "nameKey": "color",
-                "localizedName": "颜色"
-              },
-              {
-                "nameKey": "size",
-                "localizedName": "尺码"
-              }
-            ],
+            "categoryPropDef": {
+              "nameKey": "color",
+              "localizedName": "颜色"
+            },
             "categoryPropValues": [
               {
-                "categoryPropValue": [
-                  {
-                    "valueKey": "color001",
-                    "localizedValue": "红色"
-                  },
-                  {
-                    "valueKey": "color002",
-                    "localizedValue": "黄色"
-                  }
-                ]
+                "valueKey": "color001",
+                "localizedValue": "红色"
               },
               {
-                "categoryPropValue": [
-                  {
-                    "valueKey": "size001",
-                    "localizedValue": "S"
-                  },
-                  {
-                    "valueKey": "size002",
-                    "localizedValue": "M"
-                  }
-                ]
+                "valueKey": "color002",
+                "localizedValue": "黄色"
+              }
+            ]
+          },
+          {
+            "categoryPropDef": {
+              "nameKey": "size",
+              "localizedName": "尺码"
+            },
+            "categoryPropValues": [
+              {
+                "valueKey": "size001",
+                "localizedValue": "S"
+              },
+              {
+                "valueKey": "size002",
+                "localizedValue": "M"
               }
             ]
           }
@@ -78,7 +72,7 @@
             "purchasePrice": "1588",
             "skuPropValues": [
               {
-                "categoryPropDefNameKey": "color",
+                "propNameKey": "color",
                 "categoryPropValue": [
                   {
                     "valueKey": "color001",
@@ -91,7 +85,7 @@
                 ]
               },
               {
-                "categoryPropDefNameKey": "size",
+                "propNameKey": "size",
                 "categoryPropValue": [
                   {
                     "valueKey": "size001",
@@ -116,7 +110,7 @@
             "purchasePrice": "1888",
             "skuPropValues": [
               {
-                "categoryPropDefNameKey": "color",
+                "propNameKey": "color",
                 "categoryPropValue": [
                   {
                     "valueKey": "color001",
@@ -129,7 +123,7 @@
                 ]
               },
               {
-                "categoryPropDefNameKey": "size",
+                "propNameKey": "size",
                 "categoryPropValue": [
                   {
                     "valueKey": "size001",
