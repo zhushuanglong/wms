@@ -12,7 +12,7 @@
       <RightPanel v-if="showSettings && false">
         <Settings/>
       </RightPanel>
-      <RightPanel v-if="showSettings" icon="el-icon-shopping-cart-2">
+      <RightPanel icon="el-icon-shopping-cart-2">
         <ShopCart />
       </RightPanel>
     </div>

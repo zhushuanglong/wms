@@ -1,6 +1,6 @@
 <template>
   <div class="app-container product-create-main">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="产品编码">
         <el-input v-model="form.productCode" disabled></el-input>
       </el-form-item>
@@ -9,7 +9,7 @@
         <el-input v-model="form.productTitle" disabled></el-input>
       </el-form-item>
 
-      <el-form-item label="产品图片">
+      <el-form-item label="产品图片" prop="productPics">
         <el-upload
           action="https://jsonplaceholder.typicode.com/posts/"
           list-type="picture-card"
@@ -23,7 +23,7 @@
         </el-dialog>  
       </el-form-item>
 
-      <el-form-item label="产品品类">
+      <el-form-item label="产品品类" prop="categoryId">
         <el-cascader
           v-model="categoryValue"
           :options="categoryOptions"
@@ -32,7 +32,7 @@
       </el-form-item>
 
       <!-- 类目属性选择 - Eddie -->
-      <el-form-item label="类目属性">
+      <el-form-item label="类目属性" prop="nonSkuCategoryProps">
         <div class="categroy-props-layout">
           <ul class="categroy-props-list layout-box">
             <li class="tip" v-if="!renderNonSkuProps.length">请先选择产品品类</li>
@@ -78,18 +78,18 @@
           </el-checkbox-group>
         </div>
         
-        <div class="sku-info" v-show="skuTable.length">
+        <div class="sku-info" v-show="form.skus.length">
           <!-- 笛卡尔积展开 -->
           <el-table
             v-loading="skuTableLoading"
-            :data="skuTable"
+            :data="form.skus"
             border
             style="width: 100%;"
           >
             <el-table-column prop="skuCode" label="SKU编码" width="150px" align="center"></el-table-column>
-            <el-table-column prop="skuTitle" label="SKU标题" min-width="200px" align="center"></el-table-column>
+            <el-table-column prop="skuTitle" label="标题" min-width="200px" align="center"></el-table-column>
 
-            <el-table-column label="SKU图片" min-width="200px" align="center">
+            <el-table-column label="图片" min-width="200px" align="center">
               <template slot-scope="{row}">
                 <el-upload
                   action="https://jsonplaceholder.typicode.com/posts/"
@@ -112,7 +112,7 @@
               </template>
             </el-table-column>
 
-            <el-table-column label="SKU采购价" width="110px" align="center">
+            <el-table-column label="采购价" width="110px" align="center">
               <template slot-scope="{row}">
                 <el-input v-model="row.price" style="width:80px"></el-input>
               </template>
@@ -122,7 +122,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button :loading="submitButtonLoading" type="primary" @click="onSubmit">立即上新</el-button>
+        <el-button :loading="submitButtonLoading" type="primary" @click="onSubmit('form')">立即上新</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -154,7 +154,6 @@ export default {
       renderSkuPropDefs: [],
       skuCheckList: [], // 选中的SKU 如['蓝','红','L']
       
-      skuTable: [], // SKU表格数据
       skuTableHead: [], // SKU表头
       skuHeadObj: {}, // 表头记录器
 
@@ -170,6 +169,19 @@ export default {
         categoryId: '', // 分类ID
         nonSkuCategoryProps: [], // 类目属性
         skus: [] // SKU属性
+      },
+
+      // 规则
+      rules: {
+        productPics: [
+          { required: false, message: '至少上传一张图片', trigger: 'change' }
+        ],
+        categoryId: [
+          { required: true, message: '请选择产品品类', trigger: 'change' }
+        ],
+        nonSkuCategoryProps: [
+          { required: true, message: '请选择类目属性', trigger: 'change' }
+        ]
       }
     }
   },
@@ -324,7 +336,7 @@ export default {
       if (skuProps.length) {
         this.expandSkuProps(skuProps)
       } else {
-        this.skuTable = []
+        this.form.skus = []
       }
     },
 
@@ -356,15 +368,16 @@ export default {
             v.skuPropValues.map(v3 => {
               if (v2.propNameKey === v3.propNameKey) {
                 tableData[index].skuPropValues.push({
-                  propNameKey: v3.propNameKey,
-                  localizedValue: v3.localizedValue
+                  propNameKey: v2.propNameKey,
+                  localizedValue: v3.categoryPropValue.localizedValue,
+                  propValueKey: v3.categoryPropValue.valueKey
                 })
               }
             })
           })
         })
 
-        this.skuTable = tableData
+        this.form.skus = this.skuTableHead.length ? tableData : []
         this.skuTableLoading = false
       }).catch(() => {
         this.skuTableLoading = false
@@ -387,23 +400,39 @@ export default {
     },
 
     // 提交
-    onSubmit() {
-      this.submitButtonLoading = true
-      request({
-        url: '/createProduct',
-        method: 'post',
-        params: this.form
-      }).then(res => {
-        this.$message({
-          type: 'success',
-          message: '上新成功!'
-        })
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.submitButtonLoading = true
 
-        this.submitButtonLoading = false
-      }).catch(() => {
-        this.submitButtonLoading = false
+          request({
+            url: '/createProduct',
+            method: 'post',
+            params: this.form
+          }).then(res => {
+            const { productId } = res.data
+            if (productId) {
+              this.$message({
+                type: 'success',
+                message: '上新成功!'
+              })
+              this.$router.push({ path: '/product/view', query: { id: productId} })
+            } else {
+              this.$message({
+                type: 'error',
+                message: '上新失败!'
+              })
+            }
+            this.submitButtonLoading = false
+          }).catch(() => {
+            this.submitButtonLoading = false
+          })
+        } else {
+          console.log('error submit!!');
+          return false
+        }
       })
-    },
+    }
   }
 }
 </script>

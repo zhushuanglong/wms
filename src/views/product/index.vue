@@ -38,7 +38,7 @@
       :data="list"
       border
       style="width: 100%;"
-      @row-click="toggleSelection"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="40px"></el-table-column>
       <el-table-column label="产品编码" width="150px" align="center">
@@ -110,7 +110,6 @@ export default {
   },
   data() {
     return {
-      // 表格
       list: null, // 列表数据
       total: 0,
       listLoading: true,
@@ -118,14 +117,10 @@ export default {
         pageNo: 1,
         pageSize: 20,
         productId: '',
-        title: ''
+        title: '',
+        withAllFields: true // 所有字段
       },
-
-      // 编辑、查看
-      textMap: {
-        create: '添加'
-      },
-      
+      selectedData: [], // 选中的数据
       downloadLoading: false
     }
   },
@@ -148,8 +143,12 @@ export default {
         this.listLoading = false
       })
     },
-    toggleSelection(row) {
-      this.$refs.multipleTable.toggleRowSelection(row)
+    // toggleSelection(row) {
+    //   this.$refs.multipleTable.toggleRowSelection(row)
+    // },
+    // 选中表格
+    handleSelectionChange(val) {
+      this.selectedData = val
     },
     handleFilter() {
       this.listQuery.pageNo = 1

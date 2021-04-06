@@ -3,6 +3,7 @@
     <div class="header">
       <i class="el-icon-shopping-cart-2" />采购车
     </div>
+
     <el-select 
       v-model="params.supplierId"  
       class="filter-item mr10" 
@@ -20,36 +21,40 @@
     </el-select>
 
     <div class="purchase-product-layout">
-      <div class="pic">
-        <img src="https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp" />
-      </div>
-      <div class="info">
-        <div class="title">女士颜色风格领型图案元素款式品类</div>
-        <div class="sku-des">
-          <div class="label">颜色：红色</div>
-          <div class="label">尺码：L</div>
+      <div class="purchase-product">
+        <div class="pic">
+          <img src="https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp" />
         </div>
-        <div class="price">SAR 15.88 </div>
-        <div class="number">
-          <el-input-number v-model="num" @change="handleChange" :min="1" :max="99999" label="数量" size="small"></el-input-number>
+        <div class="info">
+          <div class="title">女士颜色风格领型图案元素款式品类</div>
+          <div class="sku-des">
+            <div class="label">颜色：红色</div>
+            <div class="label">尺码：L</div>
+          </div>
+          <div class="price">SAR 15.88 </div>
+          <div class="number">
+            <el-input-number v-model="num" @change="handleChange" :min="1" :max="99999" label="数量" size="small"></el-input-number>
+          </div>
         </div>
+        <i class="el-icon-close close" @click="handleClose"/>
       </div>
     </div>
-    <div class="purchase-product-layout">
-      <div class="pic">
-        <img src="https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp" />
-      </div>
-      <div class="info">
-        <div class="title">女士颜色风格领型图案元素款式品类</div>
-        <div class="sku-des">
-          <div class="label">颜色：红色</div>
-          <div class="label">尺码：L</div>
-        </div>
-        <div class="price">SAR 15.88 </div>
-        <div class="number">
-          <el-input-number v-model="num" @change="handleChange" :min="1" :max="99999" label="数量" size="small"></el-input-number>
-        </div>
-      </div>
+
+    <div class="op-remark">
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入必要的备注"
+        v-model="params.remark"
+        resize="none"
+        maxlength="500"
+        style="padding: 10px; position:absolute;bottom:50px;">
+      </el-input>
+    </div>
+
+    <div class="op-button">
+      <el-button type="primary">确定采购</el-button>
+      <el-button @click="handleClear">清空</el-button>
     </div>
 
   </div>
@@ -89,6 +94,12 @@ export default {
   methods: {
     handleChange(value) {
       console.log(value)
+    },
+    handleClose() {},
+    handleClear() {},
+    // 创建采购单
+    handleCreate() {
+
     }
   }
 }
@@ -114,6 +125,9 @@ export default {
   }
   
   .purchase-product-layout {
+    padding-bottom: 50px;
+  }
+  .purchase-product {
     display: flex;
     background: #FFF;
     padding: 10px;
@@ -171,10 +185,43 @@ export default {
         line-height: 28px;
       }
     }
+
+    i.close {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      z-index: 5;
+      cursor: pointer;
+      display: none;
+    }
+
+    &:hover {
+      background-color: #efefef;
+      i.close {
+        display: block;
+      }
+    }
+  }
+  .purchase-product:first-child {
+    border-top: 1px dashed #dcdfe6;
   }
 
   .el-input-number--small {
     width: 160px;
   }
+
+  .op-button {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    // align-content: center;
+    bottom: 0;
+    padding: 10px;
+  }
+}
+
+.el-select-dropdown {
+  z-index: 100000;
 }
 </style>

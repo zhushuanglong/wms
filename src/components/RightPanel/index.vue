@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      show: true
+      show: false
     }
   },
   computed: {
@@ -111,7 +111,7 @@ export default {
   transition: all .25s cubic-bezier(.7, .3, .1, 1);
   transform: translate(100%);
   background: #fff;
-  z-index: 40000;
+  z-index: 2001;
 }
 
 .show {

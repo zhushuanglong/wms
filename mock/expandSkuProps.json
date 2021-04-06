@@ -8,11 +8,17 @@
         "skuPropValues": [
           {
             "propNameKey": "color",
-            "localizedValue": "红色"
+            "categoryPropValue": {
+              "valueKey": "color001",
+              "localizedValue": "红色"
+            }
           },
           {
             "propNameKey": "size",
-            "localizedValue": "M"
+            "categoryPropValue": {
+              "valueKey": "size001",
+              "localizedValue": "M"
+            }
           }
         ]
       },
@@ -22,11 +28,17 @@
         "skuPropValues": [
           {
             "propNameKey": "color",
-            "localizedValue": "红色"
+            "categoryPropValue": {
+              "valueKey": "color001",
+              "localizedValue": "红色"
+            }
           },
           {
             "propNameKey": "size",
-            "localizedValue": "L"
+            "categoryPropValue": {
+              "valueKey": "size002",
+              "localizedValue": "L"
+            }
           }
         ]
       },
@@ -36,11 +48,17 @@
         "skuPropValues": [
           {
             "propNameKey": "color",
-            "localizedValue": "黄色"
+            "categoryPropValue": {
+              "valueKey": "color002",
+              "localizedValue": "黄色"
+            }
           },
           {
             "propNameKey": "size",
-            "localizedValue": "M"
+            "categoryPropValue": {
+              "valueKey": "size001",
+              "localizedValue": "M"
+            }
           }
         ]
       },
@@ -50,11 +68,17 @@
         "skuPropValues": [
           {
             "propNameKey": "color",
-            "localizedValue": "黄色"
+            "categoryPropValue": {
+              "valueKey": "color002",
+              "localizedValue": "黄色"
+            }
           },
           {
             "propNameKey": "size",
-            "localizedValue": "L"
+            "categoryPropValue": {
+              "valueKey": "size002",
+              "localizedValue": "L"
+            }
           }
         ]
       }
