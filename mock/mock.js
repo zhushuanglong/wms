@@ -61,7 +61,7 @@ var setOnline = [
   // 产品管理 - 获取 扩展的 SKU属性
   {
     name: 'expandSkuProps',
-    type: 'get',
+    type: 'post',
     url: '/expandSkuProps'
   },
   // 产品管理 - 删除产品
