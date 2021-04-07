@@ -24,8 +24,8 @@
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         上新
       </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-shopping-cart-2" @click="handleCreate">
-        加入采购单
+      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-shopping-cart-2" @click="handleAddCart">
+        批量加入采购车
       </el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="success" icon="el-icon-document" @click="handleCreate">
         批量导出
@@ -40,9 +40,11 @@
       style="width: 100%;"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="40px"></el-table-column>
+      <el-table-column type="selection" width="50px" align="center"></el-table-column>
+
       <el-table-column label="产品编码" width="150px" align="center">
         <template slot-scope="{row}">
+          <span class="incart-icon" v-show="row.inCart"><i class="el-icon-shopping-cart-full"/></span>
           <span>{{ row.productCode }}</span>
         </template>
       </el-table-column>
@@ -56,17 +58,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="标题" min-width="200px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.productTitle }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="类目" min-width="200px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.categoryName }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="标题" prop="productTitle" min-width="200px" align="center"></el-table-column>
+      <el-table-column label="类目" prop="categoryName" min-width="200px" align="center"></el-table-column>
 
       <el-table-column label="创建时间" width="150px" align="center">
         <template slot-scope="{row}">
@@ -83,7 +76,7 @@
       <el-table-column label="操作" align="center" min-width="200" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleView(row)">
-            查看
+            详情
           </el-button>
           <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleRemove(row,$index)">
             删除
@@ -143,9 +136,7 @@ export default {
         this.listLoading = false
       })
     },
-    // toggleSelection(row) {
-    //   this.$refs.multipleTable.toggleRowSelection(row)
-    // },
+    
     // 选中表格
     handleSelectionChange(val) {
       this.selectedData = val
@@ -154,14 +145,49 @@ export default {
       this.listQuery.pageNo = 1
       this.getList()
     },
-    createData() {
-      
-    },
+
     // 创建
     handleCreate() {
       this.$router.push({ path: '/product/create' })
     },
-    // 查看
+    // 加入购物车
+    handleAddCart() {
+      if (!this.selectedData.length) return this.$message({type: 'error', message: '产品不能为空，请勾选产品!'})
+
+      try {
+        const FOBJ = JSON.parse(sessionStorage.getItem('WMS-Cart-Obj'))
+        let cartObj = {
+          cartData: []
+        }
+
+        if (FOBJ !== null) {
+          cartObj = FOBJ
+        }
+
+        // 数据处理
+        this.selectedData.map((v, index) => {
+          v.skus.map(v2 => {
+            if (cartObj[v2.skuId] !== 1) {
+              cartObj.cartData.push({
+                ...v2
+              })
+              cartObj[v2.skuId] = 1 // 记录sku信息，用于去重
+              // 在表格内提示 已加入采购车
+            }
+          })
+          this.list.map(v3 => {
+            if (v.productId === v3.productId) {
+              this.$set(this.list, 'inCart', true)
+            }
+          })
+        })
+
+        // 数据存储
+        // localStorage.setItem('WMS-Cart-Obj', JSON.stringify(cartObj))
+        this.$addStorageEvent(2, 'WMS-Cart-Obj', JSON.stringify(cartObj))
+      } catch(e) {}
+    },
+    // 详情
     handleView(row) {
       this.$router.push({ path: '/product/view', query: { id: row.productId } })
     },
@@ -200,5 +226,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.incart-icon {
+  position: absolute;
+  left: -35px;
+  top: 30px;
+  z-index: 5;
+  font-size: 16px;
+  color: orangered;
+}
 </style>

@@ -102,7 +102,7 @@ export const asyncRoutes = [
     path: '/product',
     component: Layout,
     redirect: '/product/index',
-    // alwaysShow: true, // will always show the root menu
+    alwaysShow: true, // will always show the root menu
     name: 'Product',
     meta: {
       title: '产品管理',
@@ -115,7 +115,7 @@ export const asyncRoutes = [
         component: () => import('@/views/product/index'),
         name: 'IndexProduct',
         meta: {
-          title: '产品管理',
+          title: '产品列表',
           roles: ['admin', 'editor']
         }
       },
@@ -184,6 +184,88 @@ export const asyncRoutes = [
         }
       }
     ]
+  },
+  // 订单管理
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/index',
+    alwaysShow: true, // will always show the root menu
+    name: 'Order',
+    meta: {
+      title: '订单管理',
+      icon: 'form',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/order/index'),
+        name: 'indexOrder',
+        meta: {
+          title: '订单列表',
+          roles: ['admin', 'editor']
+        }
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/order/detail'),
+        name: 'detailOrder',
+        hidden: true,
+        meta: {
+          title: '订单详情',
+          roles: ['admin', 'editor']
+        }
+      }
+    ]
+  },
+  // 库存管理 - 货架列表
+  {
+    path: '/inventory',
+    component: Layout,
+    redirect: '/inventory/order/index',
+    alwaysShow: true, // will always show the root menu
+    name: 'Inventory',
+    meta: {
+      title: '库存管理',
+      icon: 'international',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'shelf',
+        component: () => import('@/views/inventory/shelf'),
+        name: 'shelfInventory',
+        meta: {
+          title: '货架管理',
+          roles: ['admin', 'editor']
+        }
+      },
+    ]
+  },
+  // 入库记录
+  {
+    path: '/inbound',
+    component: Layout,
+    component: () => import('@/views/inbound/index'),
+    name: 'inbound',
+    hidden: true,
+    meta: {
+      title: '入库记录',
+      roles: ['admin', 'editor']
+    }
+  },
+  // 出库记录
+  {
+    path: '/outbound',
+    component: Layout,
+    component: () => import('@/views/outbound/index'),
+    name: 'outbound',
+    hidden: true,
+    meta: {
+      title: '出库记录',
+      roles: ['admin', 'editor']
+    }
   },
 
   // 404 page must be placed at the end !!!

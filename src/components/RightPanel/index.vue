@@ -19,7 +19,7 @@ export default {
   name: 'RightPanel',
   props: {
     clickNotClose: {
-      default: false,
+      default: true,
       type: Boolean
     },
     buttonBottom: {

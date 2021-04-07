@@ -1,5 +1,7 @@
 {
   "code": 0,
-  "data": null,
+  "data": {
+    "purchaseOrderId": 1
+  },
   "errorMessage": ""
 }

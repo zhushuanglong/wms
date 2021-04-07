@@ -12,18 +12,14 @@
         "productPics": ["https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp", "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp"],
         "nonSkuCategoryProps": [
           {
-            "categoryPropDef": [
-              {
-                "nameKey": "style",
-                "localizedName": "风格"
-              }
-            ],
-            "categoryPropValue": [
-              {
-                "valueKey": "style001",
-                "localizedValue": "休闲"
-              }
-            ]
+            "categoryPropDef": {
+              "nameKey": "style",
+              "localizedName": "风格"
+            },
+            "categoryPropValue": {
+              "valueKey": "style001",
+              "localizedValue": "休闲"
+            }
           }
         ],
         "skuProps": [
@@ -73,29 +69,30 @@
             "skuPropValues": [
               {
                 "propNameKey": "color",
-                "categoryPropValue": [
-                  {
-                    "valueKey": "color001",
-                    "localizedValue": "红色"
-                  },
-                  {
-                    "valueKey": "color002",
-                    "localizedValue": "黄色"
-                  }
-                ]
+                "categoryPropValue": {
+                  "valueKey": "color001",
+                  "localizedValue": "红色"
+                }
               },
               {
                 "propNameKey": "size",
-                "categoryPropValue": [
-                  {
-                    "valueKey": "size001",
-                    "localizedValue": "S"
-                  },
-                  {
-                    "valueKey": "size002",
-                    "localizedValue": "M"
-                  }
-                ]
+                "categoryPropValue": {
+                  "valueKey": "size001",
+                  "localizedValue": "S"
+                }
+              }
+            ],
+
+            "skuProps": [
+              {
+                "localizedName": "颜色",
+                "valueKey": "color001",
+                "localizedValue": "红色"
+              },
+              {
+                "localizedName": "尺码",
+                "valueKey": "size001",
+                "localizedValue": "S"
               }
             ]
           },
@@ -111,29 +108,163 @@
             "skuPropValues": [
               {
                 "propNameKey": "color",
-                "categoryPropValue": [
-                  {
-                    "valueKey": "color001",
-                    "localizedValue": "红色"
-                  },
-                  {
-                    "valueKey": "color002",
-                    "localizedValue": "黄色"
-                  }
-                ]
+                "categoryPropValue": {
+                  "valueKey": "color001",
+                  "localizedValue": "红色"
+                }
               },
               {
                 "propNameKey": "size",
-                "categoryPropValue": [
-                  {
-                    "valueKey": "size001",
-                    "localizedValue": "S"
-                  },
-                  {
-                    "valueKey": "size002",
-                    "localizedValue": "M"
-                  }
-                ]
+                "categoryPropValue": {
+                  "valueKey": "size002",
+                  "localizedValue": "M"
+                }
+              }
+            ],
+            "skuProps": [
+              {
+                "localizedName": "颜色",
+                "valueKey": "color001",
+                "localizedValue": "红色"
+              },
+              {
+                "localizedName": "尺码",
+                "valueKey": "size002",
+                "localizedValue": "M"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productId": "2",
+        "productCode": "192001498",
+        "productTitle": "女士、颜色、风格、领型、图案、元素、款式（长度）、品类",
+        "categoryName": "外套-西装",
+        "creationTime": "2020-02-22 15:00",
+        "updateTime": "2020-03-22 15:05",
+        "productPics": ["https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp", "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp"],
+        "nonSkuCategoryProps": [
+          {
+            "categoryPropDef": {
+              "nameKey": "style",
+              "localizedName": "风格"
+            },
+            "categoryPropValue": {
+              "valueKey": "style001",
+              "localizedValue": "休闲"
+            }
+          }
+        ],
+        "skuProps": [
+          {
+            "categoryPropDef": {
+              "nameKey": "color",
+              "localizedName": "颜色"
+            },
+            "categoryPropValues": [
+              {
+                "valueKey": "color002",
+                "localizedValue": "红色"
+              },
+              {
+                "valueKey": "color002",
+                "localizedValue": "黄色"
+              }
+            ]
+          },
+          {
+            "categoryPropDef": {
+              "nameKey": "size",
+              "localizedName": "尺码"
+            },
+            "categoryPropValues": [
+              {
+                "valueKey": "size001",
+                "localizedValue": "S"
+              },
+              {
+                "valueKey": "size002",
+                "localizedValue": "M"
+              }
+            ]
+          }
+        ],
+        "skus": [
+          {
+            "skuId": "skuId003",
+            "skuCode": "19200149811",
+            "skuTitle": "女士颜色风格领型图案元素款式品类",
+            "skuPics": [
+              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
+            ],
+            "purchasePrice": "1588",
+            "skuPropValues": [
+              {
+                "propNameKey": "color",
+                "categoryPropValue": {
+                  "valueKey": "color001",
+                  "localizedValue": "红色"
+                }
+              },
+              {
+                "propNameKey": "size",
+                "categoryPropValue": {
+                  "valueKey": "size001",
+                  "localizedValue": "S"
+                }
+              }
+            ],
+
+            "skuProps": [
+              {
+                "localizedName": "颜色",
+                "valueKey": "color001",
+                "localizedValue": "红色"
+              },
+              {
+                "localizedName": "尺码",
+                "valueKey": "size001",
+                "localizedValue": "S"
+              }
+            ]
+          },
+          {
+            "skuId": "skuId004",
+            "skuCode": "19200149822",
+            "skuTitle": "女士颜色02风格领型图案元素款式品类",
+            "skuPics": [
+              "https://img.ltwebstatic.com/images3_app/2021/03/23/16164624655a23c39f68528e6c131bd16c99de8e49_thumbnail_480x680.webp",
+              "https://img.ltwebstatic.com/images3_app/2021/03/17/1615944232023dfc31c59d8d8ea226afeebea5907d_thumbnail_480x680.webp"
+            ],
+            "purchasePrice": "1888",
+            "skuPropValues": [
+              {
+                "propNameKey": "color",
+                "categoryPropValue": {
+                  "valueKey": "color001",
+                  "localizedValue": "红色"
+                }
+              },
+              {
+                "propNameKey": "size",
+                "categoryPropValue": {
+                  "valueKey": "size002",
+                  "localizedValue": "M"
+                }
+              }
+            ],
+            "skuProps": [
+              {
+                "localizedName": "颜色",
+                "valueKey": "color001",
+                "localizedValue": "红色"
+              },
+              {
+                "localizedName": "尺码",
+                "valueKey": "size002",
+                "localizedValue": "M"
               }
             ]
           }

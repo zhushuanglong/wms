@@ -1,0 +1,54 @@
+{
+  "code": 0,
+  "data": {
+    "orders": [
+      {
+        "actualFee": 2300,
+        "actualFeeCurrency": "SAR",
+        "city": "Louisiana",
+        "consigneeEmail": "a@a.com",
+        "consigneeMobile": 51234567,
+        "consigneeName": "winter",
+        "creationTime": "2020-02-22 15:00",
+        "detailAddress": "#1 paradise street",
+        "logisticsStatus": "UNSHIPPED",
+        "opRecords": [
+          {
+            "amount": 3,
+            "canonicalShelfCode": "GZ-XXX123",
+            "id": 123,
+            "op": "INBOUND",
+            "opTime": 0,
+            "operatorId": 234,
+            "operatorName": "winter",
+            "shelfId": "XXX123",
+            "skuCode": 2349823742398,
+            "skuId": 456,
+            "sourceOrderId": 789,
+            "sourceOrderLineId": 234
+          }
+        ],
+        "orderId": 123,
+        "orderLines": [
+          {
+            "amount": 3,
+            "creationTime": 0,
+            "orderId": 234,
+            "orderLineId": 123,
+            "skuCode": 987326143268,
+            "skuId": 456,
+            "skuTitle": "性感小内裤-黑色-蕾丝-SM",
+            "updateTime": 0
+          }
+        ],
+        "orderStatus": "OPEN",
+        "province": "New Orleans",
+        "remarks": "string",
+        "shopOrderUrl": "string",
+        "updateTime": "2020-02-22 15:00"
+      }
+    ],
+    "total": 10000
+  },
+  "errorMessage": "string"
+}

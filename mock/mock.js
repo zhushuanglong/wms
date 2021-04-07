@@ -130,8 +130,12 @@ var setOnline = [
   },
 
 
-
-  //- xx管理 -//
+  //- 订单管理 -//
+  {
+    name: 'queryOrders',
+    type: 'get',
+    url: '/queryOrders'
+  },
 ]
 
 // 输出配置项

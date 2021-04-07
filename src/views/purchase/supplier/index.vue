@@ -25,7 +25,6 @@
     </div>
 
     <el-table
-      :key="tableKey"
       v-loading="listLoading"
       :data="list"
       border
@@ -101,19 +100,18 @@
 import request from '@/api/request'
 // eslint-disable-next-line
 import { parseTime } from '@/utils'
-// import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'PurchaseSupplier',
   components: {},
   data() {
     return {
-      tableKey: 0,
-      list: null, // 列表数据
+      // list: null, // 列表数据
       total: 0,
-      listLoading: true,
+      listLoading: false,
       listQuery: {
-        // page: 1,
+        page: 1,
         // limit: 20,
         supplierId: ''
       },
@@ -132,9 +130,14 @@ export default {
     }
   },
   created() {
-    this.getList()
+    // this.getList()
   },
-  
+  computed: mapState({
+    list: state => state.suppliers.supplierList
+  }),
+  // ...mapGetters({
+  //   list: 'suppliers' 
+  // }),
   methods: {
     getList() {
       this.listLoading = true
@@ -150,23 +153,9 @@ export default {
         this.list = suppliers
         this.total = total
         this.listLoading = false
-        // this.getQuerySearchList()
       })
     },
     
-    // 数据处理
-    // getQuerySearchList() {
-    //   this.list.map(arr => {
-    //     arr.value = arr.supplierName
-    //   })
-    // },
-    // querySearch(queryString, cb) {
-    //   const results = queryString 
-    //     ? this.list.filter(arr => arr.value.toLowerCase().indexOf(queryString.toLowerCase()) >= 0) 
-    //     : this.list
-      
-    //   cb(results)
-    // },
     handleFilter() {
       // this.listQuery.page = 1
       this.getList()

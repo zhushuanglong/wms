@@ -23,6 +23,40 @@ Vue.use(Element, {
   // locale: enLang // 如果使用中文，无需设置，请删除
 })
 
+
+// 记录 
+// type 1 localStorage   
+// type 2 sessionStorage
+Vue.prototype.$addStorageEvent = function(type, key, data) {
+  if (type === 1) {
+    // 创建一个StorageEvent事件
+    var newStorageEvent = document.createEvent('StorageEvent')
+    const storage = {
+      setItem: function (k, val) {
+        localStorage.setItem(k, val)
+        // 初始化创建的事件
+        newStorageEvent.initStorageEvent('setItem', false, false, k, null, val, null, null)
+        // 派发对象
+        window.dispatchEvent(newStorageEvent)
+      }
+    }
+    return storage.setItem(key, data)
+  } else {
+    // 创建一个StorageEvent事件
+    var newStorageEvent = document.createEvent('StorageEvent')
+    const storage = {
+      setItem: function (k, val) {
+        sessionStorage.setItem(k, val)
+        // 初始化创建的事件
+        newStorageEvent.initStorageEvent('setItem', false, false, k, null, val, null, null)
+        // 派发对象
+        window.dispatchEvent(newStorageEvent)
+      }
+    }
+    return storage.setItem(key, data)
+  }
+}
+
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
