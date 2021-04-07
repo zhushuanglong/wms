@@ -146,7 +146,7 @@ export const asyncRoutes = [
     path: '/purchase',
     component: Layout,
     redirect: '/purchase/order',
-    // alwaysShow: true, // will always show the root menu
+    alwaysShow: true, // will always show the root menu
     name: 'Purchase',
     meta: {
       title: '采购管理',
@@ -154,6 +154,7 @@ export const asyncRoutes = [
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
+      // 采购订单
       {
         path: 'order',
         component: () => import('@/views/purchase/order/index'),
@@ -161,18 +162,21 @@ export const asyncRoutes = [
         meta: {
           title: '采购订单',
           roles: ['admin', 'editor']
-        }
+        },
+        children: [
+          {
+            path: 'detail',
+            component: () => import('@/views/purchase/order/detail'),
+            name: 'DetailPurchase',
+            hidden: true,
+            meta: {
+              title: '采购详情',
+              roles: ['admin', 'editor']
+            }
+          }
+        ]
       },
-      {
-        path: 'detail',
-        component: () => import('@/views/purchase/order/detail'),
-        name: 'DetailPurchase',
-        hidden: true,
-        meta: {
-          title: '采购详情',
-          roles: ['admin', 'editor']
-        }
-      },
+      
       // 供应商管理
       {
         path: 'supplier',

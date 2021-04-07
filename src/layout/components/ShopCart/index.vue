@@ -81,21 +81,12 @@ export default {
     }
   },
   created() {
+    let that = this
     this.querySuppliers()
-    
+
+    this.getLocalData()
     window.addEventListener('setItem', () => {
-      let sessionObj = JSON.parse(sessionStorage.getItem('WMS-Cart-Obj')) || {}
-      let cartArr = sessionObj.cartData || []
-      
-      cartArr.map(v => {
-        if (this.cartObj[v.skuId] !== 1) {
-          this.cartObj.cartData.push({
-            ...v,
-            quantity: 1
-          })
-          this.cartObj[v.skuId] = 1
-        }
-      })
+      that.getLocalData()
     })
   },
   watch: {},
@@ -113,9 +104,24 @@ export default {
         .then(() => {})
         .catch(() => {})
     },
+    // 获取localStorage的产品
+    getLocalData() {
+      let localObj = JSON.parse(localStorage.getItem('WMS-Cart-Obj')) || {}
+      let cartArr = localObj.cartData || []
+      
+      cartArr.map(v => {
+        if (this.cartObj[v.skuId] !== 1) {
+          this.cartObj.cartData.push({
+            ...v,
+            quantity: 1
+          })
+          this.cartObj[v.skuId] = 1
+        }
+      })
+    },
+    // 选择供应商
     handleChangeSelect() {
       this.errorMsg = ''
-      sessionStorage.getItem('WMS-Cart-Obj')
     },
     // 移除数据
     handleRemove(item) {
@@ -131,7 +137,7 @@ export default {
       })
       this.cartObj.cartData = arr
 
-      this.$addStorageEvent(2, 'WMS-Cart-Obj', JSON.stringify(this.cartObj))
+      this.$addStorageEvent(1, 'WMS-Cart-Obj', JSON.stringify(this.cartObj))
     },
     handleClear() {
       // 二次确认
@@ -148,7 +154,7 @@ export default {
       this.cartObj = {
         cartData: []
       }
-      sessionStorage.removeItem('WMS-Cart-Obj')
+      localStorage.removeItem('WMS-Cart-Obj')
     },
     // 确认 - 采购
     handleSubmit() {
@@ -161,7 +167,7 @@ export default {
       // 数据过滤 注入到提交的params里
       this.params.purchaseOrderLines = []
 
-      this.cartData.map(v => {
+      this.cartObj.cartData.map(v => {
         this.params.purchaseOrderLines.push({
           skuId: v.skuId,
           quantity: v.quantity,
@@ -204,7 +210,7 @@ export default {
           })
           this.$router.push({ 
             path: '/purchase/detail', 
-            query: { id: purchaseOrderId } 
+            query: { id: data.purchaseOrderId } 
           })
         } else {
           this.$message({
@@ -344,7 +350,7 @@ export default {
     position: absolute;
     bottom: 50px;
     z-index: 2000;
-    border-top: 1px solid #e0e0e0;
+    box-shadow: 0px 0px 6px 0px #eaeaea
   }
   .errMsg {
     position: absolute;

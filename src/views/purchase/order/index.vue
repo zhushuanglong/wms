@@ -91,7 +91,7 @@
 
       <el-table-column label="操作" align="center" min-width="200" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-          <router-link :to="{ path: '/purchase/detail', query: { id: row.purchaseOrderId } }" class="mr10">
+          <router-link :to="{ path: '/purchase/order/detail', query: { id: row.purchaseOrderId } }" class="mr10">
             <el-button type="primary" size="mini">
               详情
             </el-button>

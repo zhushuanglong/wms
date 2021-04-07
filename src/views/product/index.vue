@@ -58,8 +58,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="标题" prop="productTitle" min-width="200px" align="center"></el-table-column>
-      <el-table-column label="类目" prop="categoryName" min-width="200px" align="center"></el-table-column>
+      <el-table-column label="产品标题" prop="productTitle" min-width="200px" align="center"></el-table-column>
+      <el-table-column label="类目属性" prop="categoryName" min-width="200px" align="center"></el-table-column>
 
       <el-table-column label="创建时间" width="150px" align="center">
         <template slot-scope="{row}">
@@ -95,6 +95,7 @@ import request from '@/api/request'
 // eslint-disable-next-line
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { setTimeout } from 'timers';
 
 export default {
   name: 'ManagementProduct',
@@ -118,6 +119,7 @@ export default {
     }
   },
   created() {
+    let that = this
     this.getList()
   },
   
@@ -134,6 +136,8 @@ export default {
         this.list = products
         this.total = total
         this.listLoading = false
+
+        this.toggleCartData()
       })
     },
     
@@ -141,6 +145,37 @@ export default {
     handleSelectionChange(val) {
       this.selectedData = val
     },
+    // 根据localStorage数据 
+    // 返选table表
+    toggleCartData() {
+      // 根据购物车信息，选中或取消选中产品
+      const FOBJ = JSON.parse(localStorage.getItem('WMS-Cart-Obj'))
+      let checkedObj = {}
+      if (FOBJ) {
+        this.list.map((v, index) => {
+          v.skus.map(v2 => {
+            if (FOBJ[v2.skuId] === 1 && !checkedObj['line' + index]) {
+              checkedObj['line' + index] = true
+              this.toggleSelection([this.list[index]])
+              v.inCart = true
+            }
+          })
+        })
+      }
+    },
+    // 主动 - 选表格
+    toggleSelection(rows) {
+      if (rows) {
+        setTimeout(() => {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row)
+          })
+        }, 200)
+      } else {
+        this.$refs.multipleTable.clearSelection(row)
+      }
+    },
+
     handleFilter() {
       this.listQuery.pageNo = 1
       this.getList()
@@ -155,7 +190,7 @@ export default {
       if (!this.selectedData.length) return this.$message({type: 'error', message: '产品不能为空，请勾选产品!'})
 
       try {
-        const FOBJ = JSON.parse(sessionStorage.getItem('WMS-Cart-Obj'))
+        const FOBJ = JSON.parse(localStorage.getItem('WMS-Cart-Obj'))
         let cartObj = {
           cartData: []
         }
@@ -177,14 +212,13 @@ export default {
           })
           this.list.map(v3 => {
             if (v.productId === v3.productId) {
-              this.$set(this.list, 'inCart', true)
+              this.$set(v3, 'inCart', true)
             }
           })
         })
 
         // 数据存储
-        // localStorage.setItem('WMS-Cart-Obj', JSON.stringify(cartObj))
-        this.$addStorageEvent(2, 'WMS-Cart-Obj', JSON.stringify(cartObj))
+        this.$addStorageEvent(1, 'WMS-Cart-Obj', JSON.stringify(cartObj))
       } catch(e) {}
     },
     // 详情
@@ -202,6 +236,7 @@ export default {
         this.getList()
       })
     },
+    // 删除产品
     handleRemove(row, index) {
       this.$confirm('确认删除该产品吗?', '警告', {
         confirmButtonText: '确认',

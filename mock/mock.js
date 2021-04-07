@@ -131,11 +131,24 @@ var setOnline = [
 
 
   //- 订单管理 -//
+  // 订单 - 列表
   {
     name: 'queryOrders',
     type: 'get',
     url: '/queryOrders'
   },
+  // 订单 - 关闭
+  {
+    name: 'common',
+    type: 'post',
+    url: '/closeOrder'
+  },
+  // 订单 - 出库
+  {
+    name: 'common',
+    type: 'post',
+    url: '/outbound'
+  }
 ]
 
 // 输出配置项
