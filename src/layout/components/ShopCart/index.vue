@@ -30,13 +30,13 @@
         <div class="info">
           <div class="title">{{ item.skuTitle }}</div>
           <div class="sku-des">
-            <div class="label" v-for="skuPropsItem in item.skuProps" :key="skuPropsItem.valueKey">
-              {{skuPropsItem.localizedName}}：{{skuPropsItem.localizedValue}}
+            <div class="label" v-for="skuPropItem in item.skuPropValues" :key="skuPropItem.valueKey">
+              {{skuPropItem.localizedName}}：{{skuPropItem.localizedValue}}
             </div>
           </div>
           <div class="price">SAR {{ item.purchasePrice }}</div>
           <div class="number" v-if="item.quantity">
-            <el-input-number v-model="item.quantity" :min="1" :max="99999" label="数量" size="small"></el-input-number>
+            <el-input-number v-model="item.quantity" :min="1" :max="999999" label="数量" size="small"></el-input-number>
           </div>
         </div>
         <i class="el-icon-close close" @click="handleRemove(item)"/>

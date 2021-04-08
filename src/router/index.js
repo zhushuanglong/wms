@@ -163,20 +163,17 @@ export const asyncRoutes = [
           title: '采购订单',
           roles: ['admin', 'editor']
         },
-        children: [
-          {
-            path: 'detail',
-            component: () => import('@/views/purchase/order/detail'),
-            name: 'DetailPurchase',
-            hidden: true,
-            meta: {
-              title: '采购详情',
-              roles: ['admin', 'editor']
-            }
-          }
-        ]
       },
-      
+      {
+        path: 'detail',
+        component: () => import('@/views/purchase/order/detail'),
+        name: 'DetailPurchase',
+        hidden: true,
+        meta: {
+          title: '采购详情',
+          roles: ['admin', 'editor']
+        }
+      },
       // 供应商管理
       {
         path: 'supplier',

@@ -68,27 +68,13 @@
             "purchasePrice": "1588",
             "skuPropValues": [
               {
-                "propNameKey": "color",
-                "categoryPropValue": {
-                  "valueKey": "color001",
-                  "localizedValue": "红色"
-                }
-              },
-              {
-                "propNameKey": "size",
-                "categoryPropValue": {
-                  "valueKey": "size001",
-                  "localizedValue": "S"
-                }
-              }
-            ],
-            "skuProps": [
-              {
+                "nameKey": "color",
                 "localizedName": "颜色",
                 "valueKey": "color001",
                 "localizedValue": "红色"
               },
               {
+                "nameKey": "size",
                 "localizedName": "尺码",
                 "valueKey": "size001",
                 "localizedValue": "S"
@@ -106,27 +92,13 @@
             "purchasePrice": "1888",
             "skuPropValues": [
               {
-                "propNameKey": "color",
-                "categoryPropValue": {
-                  "valueKey": "color001",
-                  "localizedValue": "红色"
-                }
-              },
-              {
-                "propNameKey": "size",
-                "categoryPropValue": {
-                  "valueKey": "size002",
-                  "localizedValue": "M"
-                }
-              }
-            ],
-            "skuProps": [
-              {
+                "nameKey": "color",
                 "localizedName": "颜色",
                 "valueKey": "color001",
                 "localizedValue": "红色"
               },
               {
+                "nameKey": "size",
                 "localizedName": "尺码",
                 "valueKey": "size002",
                 "localizedValue": "M"
@@ -201,28 +173,13 @@
             "purchasePrice": "1588",
             "skuPropValues": [
               {
-                "propNameKey": "color",
-                "categoryPropValue": {
-                  "valueKey": "color001",
-                  "localizedValue": "红色"
-                }
-              },
-              {
-                "propNameKey": "size",
-                "categoryPropValue": {
-                  "valueKey": "size001",
-                  "localizedValue": "S"
-                }
-              }
-            ],
-
-            "skuProps": [
-              {
+                "nameKey": "color",
                 "localizedName": "颜色",
                 "valueKey": "color001",
                 "localizedValue": "红色"
               },
               {
+                "nameKey": "size",
                 "localizedName": "尺码",
                 "valueKey": "size001",
                 "localizedValue": "S"
@@ -240,27 +197,13 @@
             "purchasePrice": "1888",
             "skuPropValues": [
               {
-                "propNameKey": "color",
-                "categoryPropValue": {
-                  "valueKey": "color001",
-                  "localizedValue": "红色"
-                }
-              },
-              {
-                "propNameKey": "size",
-                "categoryPropValue": {
-                  "valueKey": "size002",
-                  "localizedValue": "M"
-                }
-              }
-            ],
-            "skuProps": [
-              {
+                "nameKey": "color",
                 "localizedName": "颜色",
                 "valueKey": "color001",
                 "localizedValue": "红色"
               },
               {
+                "nameKey": "size",
                 "localizedName": "尺码",
                 "valueKey": "size002",
                 "localizedValue": "M"

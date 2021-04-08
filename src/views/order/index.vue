@@ -93,7 +93,7 @@
 
     <Pagination v-show="total>0" :total="total" :page.sync="listQuery.pageNo" :limit.sync="listQuery.pageSize" @pagination="getList" />
 
-    <el-dialog title="出库记录表" :visible.sync="dialogFormVisible" width="800px">
+    <el-dialog title="出库记录" :visible.sync="dialogFormVisible" width="800px">
       <el-table
         :data="rowList"
         border

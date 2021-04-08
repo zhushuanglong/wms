@@ -70,25 +70,17 @@
       fit
       style="width: 100%;"
     >
-      <el-table-column label="SKUCODE" align="center" width="150px">
-        <template slot-scope="{row}">
-          <span>{{ row.skuCode }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="SKU编码" prop="skuCode" align="center" width="150px"></el-table-column>
 
       <el-table-column label="图片" width="120px" align="center">
         <template slot-scope="{row}">
           <span>
-            <img :src="row.skuPics" width="100px" />
+            <img :src="row.skuPics" width="75px" />
           </span>
         </template>
       </el-table-column>
 
-      <el-table-column label="标题" min-width="200px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.skuTitle }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="标题" prop="skuTitle" min-width="200px" align="center"></el-table-column>
 
       <el-table-column label="SKU属性" min-width="150px" align="center">
         <template slot-scope="{row}">
@@ -104,11 +96,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="采购量" width="100px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.quantity }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="采购量" prop="quantity" width="100px" align="center"></el-table-column>
 
       <el-table-column label="状态" width="200px" align="center">
         <template slot-scope="{row}">
@@ -119,35 +107,27 @@
 
     <!-- 返修退货弹层 -->
     <el-dialog title="返修退货" :visible.sync="returnDialogFormVisible" width="1280px">
-      <el-form ref="returnDialogForm" style="max-height: 600px; overflow-y: scroll;">
+      <el-form ref="returnDialogForm" >
         <el-table
-          ref="multipleTable"
           :data="purchaseOrderLinesList"
           tooltip-effect="dark"
           border
+          height="600"
           style="width: 100%;"
           @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="40"></el-table-column>
 
-          <el-table-column label="SKUCODE" align="center" width="150px">
-            <template slot-scope="{row}">
-              <span>{{ row.skuCode }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column label="SKU编码" prop="skuCode" align="center" width="150px"></el-table-column>
 
           <el-table-column label="图片" width="120px" align="center">
             <template slot-scope="{row}">
               <span>
-                <img :src="row.skuPics" width="100px" />
+                <img :src="row.skuPics" width="75px" />
               </span>
             </template>
           </el-table-column>
 
-          <el-table-column label="标题" min-width="200px" align="center">
-            <template slot-scope="{row}">
-              <span>{{ row.skuTitle }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column label="标题" prop="skuTitle" width="150px" align="center"></el-table-column>
 
           <el-table-column label="SKU信息" width="150px" align="center">
             <template slot-scope="{row}">
@@ -175,7 +155,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="备注" width="200px" align="center">
+          <el-table-column label="备注" min-width="200px" align="center" class-name="small-padding fixed-width">
             <template slot-scope="{row}">
               <el-input v-model="row.remark" type="textarea"  placeholder="* 退货备注" />
             </template>
