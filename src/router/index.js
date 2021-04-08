@@ -233,6 +233,7 @@ export const asyncRoutes = [
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
+      // 货架管理
       {
         path: 'shelf',
         component: () => import('@/views/inventory/shelf'),
@@ -242,32 +243,31 @@ export const asyncRoutes = [
           roles: ['admin', 'editor']
         }
       },
+      // 入库记录
+      // {
+      //   path: '/inbound',
+      //   component: () => import('@/views/inventory/inbound'),
+      //   name: 'inboundInventory',
+      //   hidden: true,
+      //   meta: {
+      //     title: '入库记录',
+      //     roles: ['admin', 'editor']
+      //   }
+      // },
+      // 出库记录
+      {
+        path: '/outbound',
+        component: () => import('@/views/inventory/outbound'),
+        name: 'outboundInventory',
+        hidden: true,
+        meta: {
+          title: '出库记录',
+          roles: ['admin', 'editor']
+        }
+      }
     ]
   },
-  // 入库记录
-  {
-    path: '/inbound',
-    component: Layout,
-    component: () => import('@/views/inbound/index'),
-    name: 'inbound',
-    hidden: true,
-    meta: {
-      title: '入库记录',
-      roles: ['admin', 'editor']
-    }
-  },
-  // 出库记录
-  {
-    path: '/outbound',
-    component: Layout,
-    component: () => import('@/views/outbound/index'),
-    name: 'outbound',
-    hidden: true,
-    meta: {
-      title: '出库记录',
-      roles: ['admin', 'editor']
-    }
-  },
+  
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

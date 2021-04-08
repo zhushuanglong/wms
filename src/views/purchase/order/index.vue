@@ -31,12 +31,8 @@
         clearable
         @keyup.enter.native="handleFilter"
       />
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        搜索
-      </el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-        创建采购单
-      </el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">创建采购单</el-button>
     </div>
 
     <el-table
@@ -47,66 +43,33 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="采购单ID" prop="id" align="center" width="200">
-        <template slot-scope="{row}">
-          <span>{{ row.purchaseOrderId }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="供应商名称" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.supplierName }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="采购总数" width="100px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.quantity }}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="采购单号" prop="purchaseOrderId" align="center" width="200"></el-table-column>
+      <el-table-column label="供应商名称" prop="supplierName" width="150px" align="center"></el-table-column>
+      <el-table-column label="采购总数" prop="quantity" width="100px" align="center"> </el-table-column>
       <el-table-column label="创建时间" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.creationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-
       <el-table-column label="更新时间" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-
       <el-table-column label="状态" width="200px" align="center">
         <template slot-scope="{row}">
           <span>{{ statusMap[row.purchaseOrderStatus] }} （{{ row.inboundQuantity }} / {{ row.quantity }}）</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="备注" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.remark }}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="备注" prop="remark" width="150px" align="center"></el-table-column>
       <el-table-column label="操作" align="center" min-width="200" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <router-link :to="{ path: '/purchase/detail', query: { id: row.purchaseOrderId } }" class="mr10">
-            <el-button type="primary" size="mini">
-              详情
-            </el-button>
+            <el-button type="primary" size="mini">详情</el-button>
           </router-link>
-          <router-link :to="{ path: '/store', query: { id: row.purchaseOrderId } }" class="mr10">
-            <el-button type="primary" size="mini">
-              去库存页
-            </el-button>
-          </router-link>
-          <el-button type="success" size="mini" @click="handleExportExcel(row, $index)">
-            导出EXCEL
-          </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleClose(row,$index)">
-            关闭
-          </el-button>
+          <el-button type="primary" size="mini" @click="handleInbound(row)">入库</el-button>
+          <el-button type="success" size="mini" @click="handleExportExcel(row, $index)">导出EXCEL</el-button>
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleClose(row,$index)">关闭</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -118,6 +81,12 @@
       :closeParams="closeParams" 
       @getList="getList"
     />
+
+    <InboundDialog 
+      :dialogFormVisible.sync="inboundDialogFormVisible"
+      :inboundParams="inboundParams" 
+      @callback="getList"
+    />
   </div>
 </template>
 
@@ -127,12 +96,14 @@ import request from '@/api/request'
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
 import CloseDialog from './components/closeDialog'
+import InboundDialog from './components/inboundDialog'
 
 export default {
   name: 'PurchaseOrder',
   components: { 
     Pagination,
-    CloseDialog
+    CloseDialog,
+    InboundDialog
   },
   data() {
     return {
@@ -155,12 +126,19 @@ export default {
         'PARTIAL_ARRIVED': '部分到货',
         'COMPLETE': '已完成'
       },
-      // 关闭弹层
+      // 关闭 - 弹层
       dialogFormVisible: false,
+      // 入库 - 弹层
+      inboundDialogFormVisible: false,
       // 关闭采购单参数
       closeParams: {
         purchaseOrderId: '',
         remark: ''
+      },
+      // 入库参数
+      inboundParams: {
+        purchaseOrderId: '', // 采购单ID
+        binItemsText: '' // 货位项文本（扫码枪所得
       },
       rules: {
         remark: [{ required: true, message: '备注不能为空', trigger: 'blur' }]
@@ -232,6 +210,10 @@ export default {
     handleClose(row, index) {
       this.dialogFormVisible = true
       this.closeParams.purchaseOrderId = row.purchaseOrderId
+    },
+    handleInbound(row) {
+      this.inboundDialogFormVisible = true
+      this.inboundParams.purchaseOrderId = row.purchaseOrderId
     },
     // 点击tab
     handleTabClick({ name }) {

@@ -1,51 +1,76 @@
 <template>
   <div class="app-container">
-    <!-- 基本信息 -->
-    <div class="global-list-info">
-      <div class="info-header">
-        <div>基本信息</div>
-        <div>
-          <router-link :to="{ path: '/store', query: { id: list.purchaseOrderId } }" class="mr10">
-            <el-button type="primary" size="mini">
-              去库存页
-            </el-button>
-          </router-link>
-          <el-button v-if="list.purchaseOrderStatus !== 'COMPLETE'" type="danger" size="mini" @click="handleClose">
-            关闭
-          </el-button>
+    <div style="display: flex; margin-bottom: 20px">
+      <!-- 基本信息 -->
+      <div class="global-list-info" style="width: 50%; margin-right: 20px;">
+        <div class="info-header">
+          <div>基本信息</div>
+          <div>
+            <el-button type="primary" size="mini" @click="handleInbound">入库</el-button>
+            <el-button v-if="list.purchaseOrderStatus !== 'COMPLETE'" type="danger" size="mini" @click="handleClose">关闭</el-button>
+          </div>
+        </div>
+        <div class="info-main">
+          <ul class="ul-info-main">
+            <li>
+              <span>采购单号：</span>
+              <span>{{ list.purchaseOrderId }}</span>
+            </li>
+            <li>
+              <span>供应商名称：</span>
+              <span>{{ list.supplierName }}</span>
+            </li>
+            <li>
+              <span>采购总数：</span>
+              <span>{{ list.quantity }}</span>
+            </li>
+            <li>
+              <span>创建时间：</span>
+              <span>{{ list.creationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+            </li>
+            <li>
+              <span>更新时间：</span>
+              <span>{{ list.updateTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+            </li>
+            <li>
+              <span>状态：</span>
+              <span>{{ statusMap[list.purchaseOrderStatus] }} （{{ list.inboundQuantity }} / {{ list.quantity }}）</span>
+            </li>
+            <li>
+              <span>备注：</span>
+              <span>{{ list.remark }}</span>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="info-main">
-        <ul class="ul-info-main">
-          <li>
-            <span>采购单ID：</span>
-            <span>{{ list.purchaseOrderId }}</span>
-          </li>
-          <li>
-            <span>供应商名称：</span>
-            <span>{{ list.supplierName }}</span>
-          </li>
-          <li>
-            <span>采购总数：</span>
-            <span>{{ list.quantity }}</span>
-          </li>
-          <li>
-            <span>创建时间：</span>
-            <span>{{ list.creationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-          </li>
-          <li>
-            <span>更新时间：</span>
-            <span>{{ list.updateTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-          </li>
-          <li>
-            <span>状态：</span>
-            <span>{{ statusMap[list.purchaseOrderStatus] }} （{{ list.inboundQuantity }} / {{ list.quantity }}）</span>
-          </li>
-          <li>
-            <span>备注：</span>
-            <span>{{ list.remark }}</span>
-          </li>
-        </ul>
+
+      <!-- 操作记录 -->
+      <div class="global-list-info" style="width: 50%;">
+        <div class="info-header">
+          <div>操作记录</div>
+        </div>
+        <el-table
+          :data="boundList"
+          v-loading="listLoading"
+          height="300px"
+          style="width: 100%;"
+        >
+          <el-table-column label="货架" prop="canonicalShelfCode" align="center"></el-table-column>
+          <el-table-column label="SKUID" prop="skuId" align="center"></el-table-column>
+          <el-table-column label="数量" prop="amount" align="center"></el-table-column>
+          <el-table-column label="操作人" prop="operatorName" align="center"></el-table-column>
+          <el-table-column label="操作时间" width="150" align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.opTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="操作类型" align="center" class-name="small-padding fixed-width">
+            <template slot-scope="{row,$index}">
+              <span>{{ opMap[row.op] }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
 
@@ -179,6 +204,12 @@
       :closeParams="closeParams" 
       @getList="getList"
     />
+
+    <InboundDialog 
+      :dialogFormVisible.sync="inboundDialogFormVisible"
+      :inboundParams="inboundParams" 
+      @callback="getList"
+    />
   </div>
 </template>
 
@@ -187,15 +218,17 @@ import request from '@/api/request'
 // eslint-disable-next-line
 import { parseTime } from '@/utils'
 import CloseDialog from './components/closeDialog'
+import InboundDialog from './components/inboundDialog'
 
 export default {
   name: 'PurchaseOrderDetail',
-  components: { CloseDialog },
+  components: { CloseDialog, InboundDialog },
   data() {
     return {
       tableHead: [],
       tableData:[],
       list: {}, // 采购单详情数据
+      boundList: [], // 出入库记录
       purchaseOrderLinesList: [], // sku列表
       returnSelectionData: [], // 返修退货数据
       listLoading: true,
@@ -208,15 +241,27 @@ export default {
       returnDialogFormVisible: false,
       // 关闭 - 弹层
       dialogFormVisible: false,
+      // 入库 - 弹层
+      inboundDialogFormVisible: false,
       // 关闭采购单参数
       closeParams: {
         purchaseOrderId: '',
         remark: ''
       },
+      // 入库参数
+      inboundParams: {
+        purchaseOrderId: '', // 采购单ID
+        binItemsText: '' // 货位项文本（扫码枪所得
+      },
       rules: {
         remark: [{ required: true, message: '备注不能为空', trigger: 'blur' }]
       },
-      downloadLoading: false
+      downloadLoading: false,
+      opMap: {
+        INBOUND: '入库',
+        OUTBOUND: '出库',
+        INVENTORY_CORRECTION: '校正'
+      }
     }
   },
   created() {
@@ -230,97 +275,31 @@ export default {
         url: '/queryPurchaseOrders',
         method: 'get',
         params: {
-          purchaseOrderId: this.$route.query.id
+          purchaseOrderId: this.$route.query.id,
+          withOpRecords: true, // 是否附带查出操作纪录 Default: false
+          withPurchaseOrderLines: true // 是否附带采购单条目 Default: false
         }
       }).then(res => {
-        const { purchaseOrders } = res.data
-        this.list = purchaseOrders[0]
-        this.purchaseOrderLinesList = purchaseOrders[0].purchaseOrderLines
-        this.listLoading = false
-        // console.log(this.purchaseOrderLinesList)
-        this.rearrangementData()
+        const { data } = res
+
+        if (data) {
+          const { purchaseOrders } = data
+          this.list = purchaseOrders[0] || {}
+          this.purchaseOrderLinesList = this.list.purchaseOrderLines
+          this.boundList = this.list.opRecords
+          this.listLoading = false
+        }
       })
-    },
-
-    // 表格数据重排
-    rearrangementData() {
-      let arrangementList = this.purchaseOrderLinesList
-      let len = this.purchaseOrderLinesList.length
-      let tableHead = [
-        {
-          columnKey: 'name',
-          columnLable: '姓名'
-        },
-        {
-          columnKey: 'sex',
-          columnLable: '性别'
-        }
-      ]
-
-      // let tableData = [
-      //   {
-      //     name: '啦啦',
-      //     sex: '女'
-      //   }
-      // ]
-
-      // SKU属性是个数组，平铺展示
-      for (let i = 0; i < len; i++) {
-        let skuPropValues = arrangementList[i].skuPropValues
-        let sLen = skuPropValues.length
-        for (let j = 0; j < sLen; j++) {
-          arrangementList[i]['skuPropValuesLabel' + j ] = skuPropValues[j].categoryPropDefName
-          arrangementList[i]['skuPropValuesValue' + j ] = skuPropValues[j].categoryPropValue
-        }
-      }
-
-      // for (let k = 0; k < arrangementList.length; k++) {
-      //   tableHead.push({
-      //     columnKey: arrangementList
-      //     columnLable,
-      //   })
-      // }
-
-      console.log(arrangementList)
-
-      // <!-- <template v-for="(item,index) in tableHead">
-      //   <el-table-column :prop="item.columnKey" :label="item.columnLabel" :key="index" v-if="item.columnKey != 'id'"></el-table-column>
-      // </template> -->
     },
     
     // 导出EXCEL
-    handleExportExcel(row, $index) {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['采购单号', '主麦', '商品SKU', '图片', '单价', '尺码', '采购数量', '采购总数', '供货商名称', '结算方式']
-        const filterVal = ['skuCode', 'skuCode', 'skuCode', 'skuPics', 'purchasePrice', 'skuCode', 'quantity', 'quantity', 'skuCode', 'skuCode']
-        const list = this.purchaseOrderLinesList
-        const data = this.formatJson(filterVal, list)
+    handleExportExcel(row, $index) {},
 
-        // const merges = ['A1:A2', 'B1:D1', 'E1:E2'] // 多级组合
-        // excel.export_json_to_excel({
-        //   header: tHeader,
-        //   // merges,
-        //   data,
-        //   filename: '采购单' // 文件名
-        //   // autoWidth: true, // 宽度
-        //   // bookType: 'xlsx' // 类型
-        // })
-        console.log(data)
-        this.downloadLoading = false
-      })
+    // 入库
+    handleInbound() {
+      this.inboundDialogFormVisible = true
+      this.inboundParams.purchaseOrderId = this.list.purchaseOrderId
     },
-    formatJson(filterVal, jsonData) {
-      console.log(jsonData)
-      return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
-    },
-
     // 关闭
     handleClose(row, index) {
       this.dialogFormVisible = true

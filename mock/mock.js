@@ -103,6 +103,12 @@ var setOnline = [
     type: 'post',
     url: '/closePurchaseOrder'
   },
+  // 采购单 - 入库
+  {
+    name: 'common',
+    type: 'post',
+    url: '/inbound'
+  },
 
   // 供应商 - 列表
   {
@@ -148,7 +154,10 @@ var setOnline = [
     name: 'common',
     type: 'post',
     url: '/outbound'
-  }
+  },
+
+
+  
 ]
 
 // 输出配置项

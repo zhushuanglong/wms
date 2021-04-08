@@ -1,3 +1,4 @@
 <template>
-  <div>入库</div>
+  <div>出库</div>
 </template>
+
