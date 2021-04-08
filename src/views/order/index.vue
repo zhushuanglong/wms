@@ -53,7 +53,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="40px"></el-table-column>
-      <el-table-column label="ID" prop="orderId" width="150px" align="center"></el-table-column>
+      <el-table-column label="订单号" prop="orderId" width="150px" align="center"></el-table-column>
       <el-table-column label="收货人" prop="consigneeName" width="100px" align="center"></el-table-column>
       <el-table-column label="收货人手机" prop="consigneeMobile" width="100px" align="center"></el-table-column>
       <el-table-column label="收货人邮件" prop="consigneeEmail" width="150px" align="center"></el-table-column>
@@ -100,7 +100,7 @@
         style="width: 100%;"
       >
         <el-table-column label="货架" prop="canonicalShelfCode" width="150px" align="center"></el-table-column>
-        <el-table-column label="SKUID" prop="skuId" width="150px" align="center"></el-table-column>
+        <el-table-column label="SKU号" prop="skuId" width="150px" align="center"></el-table-column>
         <el-table-column label="数量" prop="amount" width="100px" align="center"></el-table-column>
         <el-table-column label="操作人" prop="operatorName" width="100px" align="center"></el-table-column>
         <el-table-column label="操作时间" min-width="150px" align="center">

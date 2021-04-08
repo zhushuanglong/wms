@@ -242,28 +242,6 @@ export const asyncRoutes = [
           title: '货架管理',
           roles: ['admin', 'editor']
         }
-      },
-      // 入库记录
-      // {
-      //   path: '/inbound',
-      //   component: () => import('@/views/inventory/inbound'),
-      //   name: 'inboundInventory',
-      //   hidden: true,
-      //   meta: {
-      //     title: '入库记录',
-      //     roles: ['admin', 'editor']
-      //   }
-      // },
-      // 出库记录
-      {
-        path: '/outbound',
-        component: () => import('@/views/inventory/outbound'),
-        name: 'outboundInventory',
-        hidden: true,
-        meta: {
-          title: '出库记录',
-          roles: ['admin', 'editor']
-        }
       }
     ]
   },

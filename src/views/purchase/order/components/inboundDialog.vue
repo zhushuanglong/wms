@@ -4,7 +4,7 @@
       <el-form ref="inboundForm" :rules="rules" :model="inboundParams"  label-position="left" label-width="80px">
         <el-form-item label="采购单号">{{ inboundParams.purchaseOrderId }}</el-form-item>
         <el-form-item label="货位项" prop="binItemsText">
-          <el-input v-model="inboundParams.binItemsText" />
+          <el-input type="textarea" :rows="4" v-model="inboundParams.binItemsText" placeholder="请使用扫码枪录入货位项"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

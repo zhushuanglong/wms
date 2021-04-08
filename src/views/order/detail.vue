@@ -13,7 +13,7 @@
         <div class="info-main">
           <ul class="ul-info-main">
             <li>
-              <span>订单ID：</span>
+              <span>订单号：</span>
               <span>{{ list.orderId }}</span>
             </li>
             <li>
@@ -209,6 +209,8 @@ export default {
           inventory: v.amount
         })
       })
+
+      // 访问出库接口，需要货位项
 
       request({
         url: '/outbound',
